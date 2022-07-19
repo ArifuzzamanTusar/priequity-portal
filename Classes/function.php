@@ -388,7 +388,7 @@ class DbClass
     public function updateRequestedFile($req_id, $data)
     {
         $sqlQuery = "
-        UPDATE " . $this->applicationTable . " 
+        UPDATE " . $this->documentsTable . " 
         SET 
             submissions = '" . $data['submissions'] . "',
             files = '" . $data['files'] . "'
@@ -398,15 +398,24 @@ class DbClass
         if (mysqli_query($this->dbConnect, $sqlQuery)) {
             return true;
         }
+        else{
+            echo"hoyni";
+            echo $req_id;
+            echo $data['submissions'];
+            echo $data['files'];
+            echo "<br>";
+            echo $sqlQuery;
+
+        }
     }
 
 
     // Show 
     public function requestFileList($app_id)
     {
-        $this->requireAdmin();
-        $sqlQuery = "SELECT * FROM " . $this->documentsTable . " WHERE `app_id` =".$app_id." ORDER BY id DESC " ;
-        
+
+        $sqlQuery = "SELECT * FROM " . $this->documentsTable . " WHERE `app_id` =" . $app_id . " ORDER BY id DESC ";
+
         return  $this->getData($sqlQuery);
     }
 
@@ -428,5 +437,35 @@ class DbClass
         if ($status == 'rejected') {
             echo '<span class="fw-bold px-3 py-2 rounded-pill bg-soft-danger text-danger"> ' . $status . '</span> ';
         }
+    }
+
+    public  function slugify($text, string $divider = '-')
+    {
+        // replace non letter or digits by divider
+        // $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        // $text = preg_replace('~[^-\w]+~', '', $text);
+
+        //Remove Whitespaces
+        $text = preg_replace('~[^-\S]+~', '', $text);
+
+        // trim
+        $text = trim($text, $divider);
+
+        // remove duplicate divider
+        $text = preg_replace('~-+~', $divider, $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
     }
 }
