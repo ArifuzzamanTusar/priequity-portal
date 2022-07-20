@@ -8,31 +8,49 @@ $portal = new DbClass();
 <?php
 // Include config file
 require_once "layouts/config.php";
-$uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri_segments = explode('/', $uri_path);
-$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/$uri_segments[1]";
-$useremail_err = $msg = "";
-if (isset($_POST['submit'])) {
+// $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// $uri_segments = explode('/', $uri_path);
+// $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/$uri_segments[1]";
+$msg = "";
+$pass_match = "";
 
-    $useremail = mysqli_real_escape_string($link, $_POST['useremail']);
 
-    $sql = "SELECT * FROM users WHERE useremail = '$useremail'";
+if (isset($_GET['token'])) {
+
+    $token = $_REQUEST['token'];
+
+    $sql = "SELECT * FROM users WHERE token = '$token'";
     $query = mysqli_query($link, $sql);
-    $emailcount = mysqli_num_rows($query);
-
-    if ($emailcount) {
-        $userdata = mysqli_fetch_array($query);
-        $username = $userdata['username'];
-        $token = $userdata['token'];
-        $body = "Hi, $username. Click here to reset your password " . $actual_link . "/auth-reset-password.php?token=$token ";
+    $token = mysqli_num_rows($query);
 
 
+    if (isset($_POST['submit'])) {
+        if (!empty($_REQUEST['password']) && !empty($_REQUEST['re-password'])) {
+            if ($_REQUEST['password'] === $_REQUEST['re-password']) {
+                $password = password_hash($_REQUEST['re-password'], PASSWORD_DEFAULT);
+         
+                $up_pass_sql = "UPDATE `users` SET `password` = '".$password."' WHERE `users`.`token` = '".$_REQUEST['token']."'";
+              
+                if (mysqli_query($link, $up_pass_sql)) {
+                    echo $password."=".$_REQUEST['re-password']; 
+                    echo $up_pass_sql;
+                }
 
-        $portal->sendMail($useremail, 'Password Reset', $body);
-        $msg = "We have emailed your password reset link!";
-    } else {
-        $useremail_err = "No Email Found";
+
+
+
+            } else {
+                $pass_match = "Both password shoud be same";
+            }
+        } else {
+
+            $pass_match = "Password shoud not be Empty";
+        }
     }
+
+    // $portal->sendMail($useremail, 'Password Reset', $body);
+
+
 }
 ?>
 <?php
@@ -41,7 +59,7 @@ if (isset($_POST['submit'])) {
 
 <head>
 
-    <title>Recover Password | Priequity Portal</title>
+    <title>Reset Password | Priequity Portal</title>
     <?php include 'layouts/head.php'; ?>
     <?php include 'layouts/head-style.php'; ?>
 
@@ -71,16 +89,41 @@ if (isset($_POST['submit'])) {
                                     </div>
                                 <?php } ?>
 
-                                <form class="custom-form mt-4" action="<?php echo htmlentities($_SERVER["PHP_SELF"]); ?>" method="post">
-                                    <div class="mb-3 <?php echo (!empty($useremail_err)) ? 'has-error' : ''; ?>">
-                                        <label class="form-label">Email</label>
-                                        <input type="text" name="useremail" class="form-control" id="email" placeholder="Enter email">
-                                        <span class="text-danger"><?php echo $useremail_err ? $useremail_err : ''; ?></span>
-                                    </div>
-                                    <div class="mb-3 mt-4">
-                                        <button class="btn btn-primary w-100 waves-effect waves-light" type='submit' name='submit' value='Submit'>Reset</button>
-                                    </div>
-                                </form>
+                                <?php
+
+                                if ($token) {
+                                ?>
+                                    <form class="custom-form mt-4" action="" method="post">
+                                        <div class="mb-3">
+                                            <label class="form-label">New Password</label>
+                                            <input type="password" name="password" class="form-control" id="password" placeholder="***********">
+                                            <span class="text-danger"><?php ?></span>
+                                        </div>
+                                        <div class="mb-3 <?php echo (!empty($useremail_err)) ? 'has-error' : ''; ?>">
+                                            <label class="form-label">Re-Type New Password</label>
+                                            <input type="password" name="re-password" class="form-control" id="re-password" placeholder="***********">
+                                            <span class="text-danger"><?php ?></span>
+                                        </div>
+                                        <?php
+                                        if ($pass_match) {
+                                        ?>
+                                            <div class="p-3 alert alert-danger text-center"><?php echo $pass_match ?></div>
+                                        <?php
+                                        }
+                                        ?>
+                                        <div class="mb-3 mt-4">
+                                            <button class="btn btn-primary w-100 waves-effect waves-light" type='submit' name='submit' value='Submit'>Reset</button>
+                                        </div>
+                                    </form>
+                                <?php
+                                } else {
+                                ?>
+                                    <div class="p-3 alert alert-danger text-center">Token Expired or Invalid</div>
+                                <?php
+                                }
+                                ?>
+
+
 
                                 <div class="mt-5 text-center">
                                     <p class="text-muted mb-0">Remember It ? <a href="auth-login.php" class="text-primary fw-semibold"> Sign In </a> </p>

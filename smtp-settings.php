@@ -56,7 +56,7 @@
 
                     <?php
                     $site = '2d58745e5af8524a5c0f9366ab25d493f98b160f';
-                    $site_options = $portal -> getOptions($site)[0];
+                    $site_options = $portal->getOptions($site)[0];
                     if (isset($_POST['update-smtp'])) {
                         if ($portal->updateSMTP($site, $_REQUEST)) {
                             echo '<script> window.location.replace("smtp-settings.php?status=SMTP settings updated!");  </script>';
