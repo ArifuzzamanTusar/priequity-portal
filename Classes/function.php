@@ -10,6 +10,8 @@ class DbClass
     private $countryTable = 'country';
     private $applicationTable = 'application';
     private $documentsTable = 'documents';
+    private $portalTable = 'portal_option';
+
 
     private $invoiceOrderTable = 'invoice_order';
     private $invoiceOrderItemTable = 'invoice_order_item';
@@ -397,15 +399,13 @@ class DbClass
         // mysqli_query($this->dbConnect, $sqlInsert);
         if (mysqli_query($this->dbConnect, $sqlQuery)) {
             return true;
-        }
-        else{
-            echo"hoyni";
+        } else {
+            echo "hoyni";
             echo $req_id;
             echo $data['submissions'];
             echo $data['files'];
             echo "<br>";
             echo $sqlQuery;
-
         }
     }
 
@@ -418,6 +418,37 @@ class DbClass
 
         return  $this->getData($sqlQuery);
     }
+
+    // ++++++}}}}}}}}|||||| UTILITIES ||||||||||{{{{{{{{{{{+++++++++
+
+    // SMTP
+
+
+    public function updateSMTP($site, $data)
+    {
+        $sqlQuery = "
+        UPDATE " . $this->portalTable . " 
+        SET 
+            smtp_host = '" . $data['smtp_host'] . "',
+            smtp_user = '" . $data['smtp_user'] . "',
+            smtp_password = '" . $data['smtp_password'] . "',
+            smtp_port = '" . $data['smtp_port'] . "'
+        WHERE site_key  LIKE '" . $site . "'";
+
+        // mysqli_query($this->dbConnect, $sqlInsert);
+        if (mysqli_query($this->dbConnect, $sqlQuery)) {
+            return true;
+        } 
+    }
+    public function getOptions($site)
+    {
+        
+        $sqlQuery = "SELECT * FROM " . $this->portalTable . " WHERE `site_key` LIKE '" . $site . "'";
+ 
+
+        return  $this->getData($sqlQuery);
+    }
+
 
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

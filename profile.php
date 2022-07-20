@@ -1,8 +1,8 @@
-
 <?php include 'layouts/head-main.php'; ?>
+<?php $getUserMeta = $portal->userAllData($getuser[0]['useremail'])[0]; ?>
 
 <head>
-    
+
     <title>Profile | Minia - Admin & Dashboard Template</title>
     <?php include 'layouts/head.php'; ?>
     <?php include 'layouts/head-style.php'; ?>
@@ -56,12 +56,12 @@
                                             </div>
                                             <div class="flex-grow-1">
                                                 <div>
-                                                    <h5 class="font-size-16 mb-1">Phyllis Gatlin</h5>
-                                                    <p class="text-muted font-size-13">Full Stack Developer</p>
+                                                    <h5 class="font-size-16 mb-1"><?php echo $getUserMeta['first_name'] ? $getUserMeta['first_name'] . " " . $getUserMeta['last_name'] : $getuser[0]['username'] ?></h5>
+                                                    <p class="text-muted font-size-13"><?php echo ($getuser[0]['role'] == 10000) ? 'admin' : 'user' ?></p>
 
                                                     <div class="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
-                                                        <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Development</div>
-                                                        <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>phyllisgatlin@minia.com</div>
+                                                        <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Phone: <?php echo  $getUserMeta['phone'] ?  $getUserMeta['phone'] : 'not set' ?></div>
+                                                        <div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Email: <?php echo $getuser[0]['useremail'] ?></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -72,7 +72,7 @@
                                             <div>
                                                 <a type="button" href="edit-profile.php" class="btn btn-soft-light"><i class="me-1"></i> Edit Profile</a>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -82,9 +82,16 @@
                                         <a class="nav-link px-3 active" data-bs-toggle="tab" href="#overview" role="tab">Overview</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link px-3" data-bs-toggle="tab" href="#about" role="tab">Applications</a>
+                                        <?php
+                                        if (!isAdmin) {
+                                        ?>
+                                            <a class="nav-link px-3" data-bs-toggle="tab" href="#about" role="tab">Applications</a>
+                                        <?php
+                                        }
+                                        ?>
+
                                     </li>
-                                  
+
                                 </ul>
                             </div>
                             <!-- end card body -->
@@ -103,13 +110,16 @@
                                                 <div class="row">
                                                     <div class="col-xl-2">
                                                         <div>
-                                                            <h5 class="font-size-15">Bio :</h5>
+                                                            <h5 class="font-size-15">Address :</h5>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl">
                                                         <div class="text-muted">
-                                                            <p class="mb-2">Hi I'm Phyllis Gatlin, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
-                                                            <p class="mb-0">It is a long established fact that a reader will be distracted by the readable content of a page when looking at it has a more-or-less normal distribution of letters</p>
+                                                            <p>City: <?php echo  $getUserMeta['city'] ? $getUserMeta['city'] : "not set" ?></p>
+                                                            <p>Zipcode: <?php echo  $getUserMeta['zip_code'] ? $getUserMeta['zip_code'] : "not set" ?></p>
+                                                            <p>State: <?php echo  $getUserMeta['state'] ? $getUserMeta['state'] : "not set" ?></p>
+                                                            <p>Country: <?php echo  $getUserMeta['country'] ? $getUserMeta['country'] : "not set" ?></p>
+                                                                
                                                         </div>
                                                     </div>
                                                 </div>
@@ -119,19 +129,14 @@
                                                 <div class="row">
                                                     <div class="col-xl-2">
                                                         <div>
-                                                            <h5 class="font-size-15">Experience :</h5>
+                                                            <h5 class="font-size-15">Birthday :</h5>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl">
                                                         <div class="text-muted">
-                                                            <p>If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc</p>
+                                                            <p><?php echo  $getUserMeta['birthday'] ? $getUserMeta['birthday'] : "not set" ?></p>
 
-                                                            <ul class="list-unstyled mb-0">
-                                                                <li class="py-1"><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Donec vitae sapien ut libero venenatis faucibus</li>
-                                                                <li class="py-1"><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Quisque rutrum aenean imperdiet</li>
-                                                                <li class="py-1"><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Integer ante a consectetuer eget</li>
-                                                                <li class="py-1"><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Phasellus nec sem in justo pellentesque</li>
-                                                            </ul>
+                                                           
                                                         </div>
                                                     </div>
                                                 </div>
@@ -142,7 +147,7 @@
                                 </div>
                                 <!-- end card -->
 
-                               
+
                                 <!-- end card -->
                             </div>
                             <!-- end tab pane -->
@@ -153,36 +158,50 @@
                                         <h5 class="card-title mb-0">My Recent Applications</h5>
                                     </div>
                                     <div class="card-body">
-                                        <div>
-                                            <div class="pb-3">
-                                                <h5 class="font-size-15">Bio :</h5>
-                                                <div class="text-muted">
-                                                    <p class="mb-2">Hi I'm Phyllis Gatlin, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
-                                                    <p class="mb-2">It is a long established fact that a reader will be distracted by the readable content of a page when looking at it has a more-or-less normal distribution of letters</p>
-                                                    <p>It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth.</p>
 
-                                                    <ul class="list-unstyled mb-0">
-                                                        <li class="py-1"><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Donec vitae sapien ut libero venenatis faucibus</li>
-                                                        <li class="py-1"><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Quisque rutrum aenean imperdiet</li>
-                                                        <li class="py-1"><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Integer ante a consectetuer eget</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
 
-                                            <div class="pt-3">
-                                                <h5 class="font-size-15">Experience :</h5>
-                                                <div class="text-muted">
-                                                    <p>If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc</p>
+                                        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                                            <thead>
+                                                <tr>
+                                                    <th>App ID</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
 
-                                                    <ul class="list-unstyled mb-0">
-                                                        <li class="py-1"><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Donec vitae sapien ut libero venenatis faucibus</li>
-                                                        <li class="py-1"><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Quisque rutrum aenean imperdiet</li>
-                                                        <li class="py-1"><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Integer ante a consectetuer eget</li>
-                                                        <li class="py-1"><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Phasellus nec sem in justo pellentesque</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                </tr>
+                                            </thead>
+
+
+                                            <tbody>
+
+
+                                                <?php
+                                                $u_app = $portal->usersApplicationList($getuser[0]['useremail']);
+                                                foreach ($u_app as $app) {
+                                                ?>
+                                                    <tr>
+                                                        <td> <?php echo $app['id'] ?> </td>
+                                                        <td>
+                                                            <?php
+                                                            echo $app['created_at'];
+
+
+                                                            ?>
+                                                        </td>
+                                                        <td> <?php $portal->appStatus($app['status']) ?> </td>
+
+
+                                                    </tr>
+
+
+                                                <?php
+
+                                                }
+
+
+                                                ?>
+
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <!-- end card body -->
                                 </div>
@@ -190,13 +209,13 @@
                             </div>
                             <!-- end tab pane -->
 
-                           
+
                         </div>
                         <!-- end tab content -->
                     </div>
                     <!-- end col -->
 
-                    
+
                     <!-- end col -->
                 </div>
                 <!-- end row -->

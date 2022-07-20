@@ -87,7 +87,7 @@ $token = md5($getuser[0]['username']);
 
                 <!-- ###############################  TABLE START #############################  -->
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="card">
                             <div class="card-body">
 
@@ -111,13 +111,13 @@ $token = md5($getuser[0]['username']);
 
 
 
-                                    <div class="card p-3">
+                                    <div class="card ">
 
 
                                         <div class="conv_areaa">
                                             <!-- ====================================================== -->
                                             <!-- ============== CONV AREA Starts ======================= -->
-                                            <div class="chat-conversation p-3 px-2" data-simplebar>
+                                            <div class="chat-conversation p-3" data-simplebar>
 
                                                 <?php
                                                 $conv_list = $portal->requestFileList($singledata['id']);
@@ -138,7 +138,7 @@ $token = md5($getuser[0]['username']);
                                                                             <?php echo $conv['ask_for'] ?>
                                                                         </div>
                                                                         <hr>
-                                                                        <div class="">
+                                                                        <div class="Submission_area">
 
                                                                             <?php
                                                                             $s_files =  unserialize($conv['files']);
@@ -149,11 +149,21 @@ $token = md5($getuser[0]['username']);
                                                                             ?>
                                                                                 <!-- Submitted Files  -->
                                                                                 <div class="submitted_files">
-                                                                                    Submitted Files:
-                                                                                    <?php
-                                                                                    debug($s_files);
-                                                                                    ?>
+                                                                                    <h6 class="text-primary"> <i class="fas fa-reply"></i> Submitted Files</h6>
+                                                                                    <div class=""> <?php echo $conv['submissions'] ?> </div>
+                                                                                    <div class="d-flex flex-wrap">
+                                                                                        <?php
+                                                                                        foreach ($s_files as $files) {
+                                                                                        ?>
+                                                                                            <div class="my-2 me-2 px-4 py-2 rounded-pill bg-info text-white">
+                                                                                                <?php echo $files ?>
+                                                                                            </div>
+                                                                                        <?php
+                                                                                        }
+                                                                                        ?>
 
+
+                                                                                    </div>
                                                                                 </div>
                                                                                 <!-- Submitted Files end -->
                                                                             <?php
@@ -175,8 +185,7 @@ $token = md5($getuser[0]['username']);
                                                                                         <div class="card card-body">
 
                                                                                             <?php
-
-                                                                                            if (isset($_POST['request_file'])) {
+                                                                                            if (isset($_POST['request_file_'.$conv['id']])) {
                                                                                                 $ask_for = $_REQUEST['req_message'];
                                                                                                 $conv_id = $conv['id'];
                                                                                                 $app_id = $singledata['id'];
@@ -260,18 +269,22 @@ $token = md5($getuser[0]['username']);
                                                                                                 </div>
                                                                                                 <div class="mb-3">
                                                                                                     <label for="" class="form-label">Remarks </label>
-                                                                                                    <textarea class="form-control" name="req_message" id="ckeditor-classic" rows="3"></textarea>
+                                                                                                    <textarea class="form-control " name="req_message" ></textarea>
                                                                                                 </div>
 
-                                                                                                <input name="request_file" id="" class="col-12 btn btn-primary waves-effect waves-light" type="submit" value="Submit Files">
+                                                                                                <input name="request_file_<?php echo  $conv['id']?>" id="" class="col-12 btn btn-primary waves-effect waves-light" type="submit" value="Submit Files">
                                                                                             </form>
+
+
+
                                                                                         </div>
                                                                                         <!-- Submit Files ends  -->
-                                                                                    <?php
-                                                                                }
-                                                                                    ?>
                                                                                     </div>
                                                                                 </div>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+
 
 
 
@@ -309,9 +322,8 @@ $token = md5($getuser[0]['username']);
                                 ?>
                             </div>
                         </div>
-
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
                                 <h4>Application Details</h4>
@@ -403,8 +415,9 @@ $token = md5($getuser[0]['username']);
 
 
 <script>
+    //issues : cannot get multiple classes
     ClassicEditor
-        .create(document.querySelector('#ckeditor-classic'), {
+        .create(document.querySelector('._remarks'), {
             removePlugins: ['Heading'],
             toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote', 'link']
         })

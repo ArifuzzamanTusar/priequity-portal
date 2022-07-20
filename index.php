@@ -1,7 +1,6 @@
-
 <?php
 //  include 'layouts/session.php';
-  ?>
+?>
 <?php include 'layouts/head-main.php'; ?>
 
 
@@ -49,6 +48,17 @@
                 </div>
                 <!-- end page title -->
 
+                <?php
+                // conditional dashboard options
+                if (isAdmin) {
+                    $u_app = $portal->applicationList();
+                } else {
+                    $u_app = $portal->usersApplicationList($getuser[0]['useremail']);
+                }
+
+
+                ?>
+
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
                         <!-- card -->
@@ -69,7 +79,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div><!-- end card body -->
                         </div><!-- end card -->
                     </div><!-- end col -->
@@ -93,7 +103,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div><!-- end card body -->
                         </div><!-- end card -->
                     </div><!-- end col-->
@@ -117,7 +127,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div><!-- end card body -->
                         </div><!-- end card -->
                     </div><!-- end col -->
@@ -141,7 +151,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div><!-- end card body -->
                         </div><!-- end card -->
                     </div><!-- end col -->
@@ -196,12 +206,56 @@
                                     <h5 class="card-title me-2">Recent Applications</h5>
                                     <div class="ms-auto">
 
-                                        <a href="" class="btn btn-primary">See All</a>
+                                        <a href="manage-application.php" class="btn btn-primary">See All</a>
                                     </div>
                                 </div>
 
                                 <div class="table">
-                                    <!-- --- add table here ----  -->
+                                    <div class="">
+
+
+                                        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                                            <thead>
+                                                <tr>
+                                                    <th>App ID</th>
+                                                    <th>Name</th>
+                                                    <th>Creation Date</th>
+                                                    <th>Status</th>
+
+                                                </tr>
+                                            </thead>
+
+
+                                            <tbody>
+
+
+                                                <?php
+
+                                                foreach ($u_app as $app) {
+
+                                                    // debug($app['id']);
+
+                                                ?>
+                                                    <tr>
+                                                        <td> <?php echo $app['id'] ?> </td>
+                                                        <td> <?php echo $app['first_name'] . " " . $app['last_name'] ?> </td>
+                                                        <td> <?php echo $app['created_at'] ?> </td>
+                                                        <td> <?php echo $app['status'] ?> </td>
+
+
+                                                    </tr>
+
+
+                                                <?php
+
+                                                }
+
+
+                                                ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
 
 

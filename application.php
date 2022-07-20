@@ -16,11 +16,11 @@ if (isset($_GET['app-id'])) {
         $status_bg = 'bg-info';
         $status_color = 'text-white';
     }
-    if ($singledata['status'] === 'cancelled') {
+    if ($singledata['status'] === 'rejected') {
         $status_bg = 'bg-danger';
         $status_color = 'text-white';
     }
-    if ($singledata['status'] === 'completed') {
+    if ($singledata['status'] === 'approved') {
         $status_bg = 'bg-success';
         $status_color = 'text-white';
     }
@@ -138,9 +138,52 @@ $token = md5($getuser[0]['username']);
                                                                             <?php echo $conv['ask_for'] ?>
                                                                         </div>
                                                                         <hr>
-                                                                        <div class="p-3 bg-warning text-white">
-                                                                            Waiting for client's response . . .
+
+
+
+                                                                        <div class="submission_area">
+                                                                            <?php
+
+                                                                            $s_files =  unserialize($conv['files']);
+
+
+                                                                            if ($s_files && count($s_files) > 0) {
+
+                                                                            ?>
+                                                                                <!-- Submitted Files  -->
+                                                                                <div class="submitted_files">
+                                                                                    <h6 class="text-primary"> <i class="fas fa-reply"></i> Submitted Files</h6>
+                                                                                    <div class=""> <?php echo $conv['submissions'] ?> </div>
+                                                                                    <div class="d-flex flex-wrap">
+                                                                                        <?php
+                                                                                        foreach ($s_files as $files) {
+                                                                                        ?>
+                                                                                            <a href="_uploads/<?php echo $files ?>" target="_BLANK">
+                                                                                                <div class="my-2 me-2 px-4 py-2 rounded-pill bg-info text-white">
+                                                                                                    <?php echo $files ?>
+                                                                                                </div>
+                                                                                            </a>
+                                                                                        <?php
+                                                                                        }
+                                                                                        ?>
+
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!-- Submitted Files end -->
+                                                                            <?php
+
+
+                                                                            } else {
+                                                                            ?>
+                                                                                <div class="p-3 bg-warning text-white">
+                                                                                    Waiting for client's response . . .
+                                                                                </div>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
                                                                         </div>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -181,7 +224,7 @@ $token = md5($getuser[0]['username']);
                                                     if ($portal->requestFiles($app_id, $data)) {
                                                         // echo "kaj hoise;";
 
-                                                        echo '<script> window.location.replace("application.php?app-id='.$app_id.'");  </script>';
+                                                        echo '<script> window.location.replace("application.php?app-id=' . $app_id . '");  </script>';
                                                     }
                                                 }
                                                 ?>
@@ -258,12 +301,19 @@ $token = md5($getuser[0]['username']);
                         <div class="card">
                             <div class="card-body p-2">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <button type="button" class="btn btn-danger waves-effect waves-light me-3" data-bs-toggle="modal" data-bs-target="#delete_application_modal">
                                     Delete Application
                                 </button>
+                                <button type="button" class="btn btn-warning waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#update_application_status_modal">
+                                    Update Application status
+                                </button>
 
-                                <!-- Modal -->
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+
+                                <!-- |||||||||||||||||| MODALS ||||||||||||||  -->
+
+                                <!-- Modal for  Delete Application  -->
+                                <div class="modal fade" id="delete_application_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -291,6 +341,66 @@ $token = md5($getuser[0]['username']);
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- ----------------------  -->
+                                <!-- Modal for  Delete Application  -->
+                                <div class="modal fade" id="update_application_status_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Update Application Status</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div class="py-3">
+                                                    <?php
+                                                    if (isset($_POST['change_app_status'])) {
+
+                                                        $app_id = $singledata['id'];
+
+                                                        if ($portal->updateApplicationStatus($singledata['id'], $_REQUEST['status'])) {
+                                                          
+                                                            echo '<script> window.location.replace("application.php?app-id=' . $app_id . '");  </script>';
+                                                        } else {
+                                                            echo "error";
+                                                        }
+                                                    }
+
+                                                    ?>
+
+                                                    <form action="" method="post">
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Change Application Status</label>
+                                                            <select class="form-control" name="status" id="">
+                                                                <option value="approved">approved</option>
+                                                                <option value="processing">processing</option>
+                                                                <option value="pending">pending</option>
+                                                                <option value="rejected">rejected</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="py-3">
+                                                            <button type="submit" name="change_app_status" class="btn btn-danger waves-effect waves-light col-12">Update Status</button>
+                                                        </div>
+
+                                                    </form>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ----------------------  -->
+
+
+
+                                <!-- |||||||||||||||||||||| MODAL ENDS |||||||||||||||| -->
                             </div>
                         </div>
                         <!-- end cardaa -->

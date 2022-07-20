@@ -320,18 +320,18 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li>
-                                <a href="apply-now.php">
+                                <a href="utilities.php">
                                     <span data-key="t-calendar"><?php echo $language["Utilities"]; ?></span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="my-application.php">
+                                <a href="smtp-settings.php">
                                     <span data-key="t-chat"><?php echo $language["SMTP"]; ?></span>
                                 </a>
                             </li>
                             <li>
-                                <a href="my-application.php">
+                                <a href="email-templates.php">
                                     <span data-key="t-chat"><?php echo $language["Email Templates"]; ?></span>
                                 </a>
                             </li>
