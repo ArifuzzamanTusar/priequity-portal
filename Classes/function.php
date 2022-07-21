@@ -10,16 +10,21 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 
+include 'layouts/config.php';
+
+
+
 
 
 // -----------------------------------
 // ---------------end PHP mailer  
 class DbClass
 {
-    private $host  = 'localhost';
-    private $user  = 'root';
-    private $password   = "";
-    private $database  = "priequity_portal";
+    private $host  = DB_SERVER;
+    private $user  = DB_USERNAME;
+    private $password   = DB_PASSWORD;
+    private $database  = DB_NAME;
+    // Tables 
     private $usersTable = 'users';
     private $userMetaTable = 'user_meta';
     private $countryTable = 'country';
