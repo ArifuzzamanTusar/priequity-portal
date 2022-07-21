@@ -87,7 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Set parameters
             $param_useremail = $useremail;
             $param_username = $username;
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            // $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            $param_password = md5($password); // Creates a password hash
             $param_token = bin2hex(random_bytes(50)); // generate unique token
 
             // Attempt to execute the prepared statement

@@ -27,13 +27,12 @@ if (isset($_GET['token'])) {
     if (isset($_POST['submit'])) {
         if (!empty($_REQUEST['password']) && !empty($_REQUEST['re-password'])) {
             if ($_REQUEST['password'] === $_REQUEST['re-password']) {
-                $password = password_hash($_REQUEST['re-password'], PASSWORD_DEFAULT);
+                $password = md5($_REQUEST['re-password']);
          
                 $up_pass_sql = "UPDATE `users` SET `password` = '".$password."' WHERE `users`.`token` = '".$_REQUEST['token']."'";
               
                 if (mysqli_query($link, $up_pass_sql)) {
-                    echo $password."=".$_REQUEST['re-password']; 
-                    echo $up_pass_sql;
+                   header("location: auth-login.php");
                 }
 
 

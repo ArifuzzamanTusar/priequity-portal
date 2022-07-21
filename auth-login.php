@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Set parameters
             $param_username = $username;
+            $md5_password =  md5($password);
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
@@ -50,25 +51,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Check if username exists, if yes then verify password
                 if (mysqli_stmt_num_rows($stmt) == 1) {
-                    // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
-                    if (mysqli_stmt_fetch($stmt)) {
-                        if (password_verify($password, $hashed_password)) {
-                            // Password is correct, so start a new session
-                            session_start();
 
-                            // Store data in session variables
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;
+                    $sql = "SELECT `password` , `id` FROM users WHERE username = '" . $param_username . "'";
+                    $result = mysqli_query($link, $sql);
 
-                            // Redirect user to welcome page
-                            header("location: index.php");
-                        } else {
-                            // Display an error message if password is not valid
-                            $password_err = "The password you entered was not valid.";
+                    if (mysqli_num_rows($result) > 0) {
+                        // output data of each row
+                        while ($row = mysqli_fetch_assoc($result)) {
+
+                            if ($row['password'] === $md5_password) {
+                                // Password is correct, so start a new session
+                                session_start();
+
+                                // Store data in session variables
+                                $_SESSION["loggedin"] = true;
+                                $_SESSION["id"] =$row['id'];
+                                $_SESSION["username"] = $param_username;
+
+                                // Redirect user to welcome page
+                                header("location: index.php");
+                            } else {
+                                // Display an error message if password is not valid
+                                $password_err = "The password you entered was not valid.";
+                            }
                         }
+                    } else {
+                        echo "0 results";
                     }
+
+
+
+                    // Bind result variables
+                    // mysqli_stmt_bind_result($stmt, $id, $username, $md5_password);
+                    // if (mysqli_stmt_fetch($stmt)) {
+                    //     var_dump(mysqli_stmt_fetch($stmt));
+                    //     if (password_verify($password, $md5_password)) {
+                    //         // Password is correct, so start a new session
+                    //         session_start();
+
+                    //         // Store data in session variables
+                    //         $_SESSION["loggedin"] = true;
+                    //         $_SESSION["id"] = $id;
+                    //         $_SESSION["username"] = $username;
+
+                    //         // Redirect user to welcome page
+                    //         header("location: index.php");
+                    //     } else {
+                    //         // Display an error message if password is not valid
+                    //         $password_err = "The password you entered was not valid.";
+                    //     }
+                    // }
                 } else {
                     // Display an error message if username doesn't exist
                     $username_err = "No account found with that username.";
@@ -135,11 +167,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                         <div class="input-group auth-pass-inputgroup">
                                             <input type="password" class="form-control" placeholder="Enter password" name="password" value="123456" aria-label="Password" aria-describedby="password-addon">
-                                           
+
                                             <button class="btn btn-light ms-0" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
                                         </div>
                                         <div class="error py-2">
-                                        <span class="text-danger"><?php echo $password_err; ?></span>
+                                            <span class="text-danger"><?php echo $password_err; ?></span>
                                         </div>
                                     </div>
                                     <div class="row mb-4">

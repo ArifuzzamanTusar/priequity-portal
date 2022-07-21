@@ -100,7 +100,7 @@ $token = md5($getuser[0]['username']);
                                 ?>
 
                                     <div class="py-5 text-center">
-                                        <a class="btn btn-primary waves-effect waves-light" href="action.php?update-app-status=1&app_id=<?php echo $singledata['id'] ?>&app_status=processing&token=<?php echo $token ?>">Process This Application</a>
+                                        <div class="text-muted">Our Team is reviewing your application please be patient!</div>
                                     </div>
 
                                 <?php

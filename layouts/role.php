@@ -9,7 +9,6 @@ $portal->checkLoggedIn();
 
 $session_user_id = $_SESSION["id"];
 $session_user_name = $_SESSION["username"];
-
 function getRoles($role_id)
 {
     if ($role_id === admin_code) {
