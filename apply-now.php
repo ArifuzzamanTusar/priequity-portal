@@ -372,13 +372,14 @@ $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
                                             <div class="col-xl-4 col-md-6">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label ">Capital Use (How your company is planning to use it)</label>
-                                                    <input name="capital_uses" type="number" class="form-control" placeholder="-" required data-pristine-required-message="Enter Current Capital usages">
+                                                    <!-- <input name="capital_uses" type="text" class="form-control" placeholder="Descri" > -->
+                                                    <textarea name="capital_uses" class="form-control" id="" cols="30" rows="1" placeholder="Describe How your company is planning to use it" required data-pristine-required-message="Enter Current Capital usages"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-xl-4 col-md-6">
                                                 <div class="form-group mb-3">
                                                     <label>Experience (Years)</label>
-                                                    <input name="experience" type="text" class="form-control" placeholder="9+" required data-pristine-required-message="Enter Your Experiences">
+                                                    <input name="experience" type="number" class="form-control" placeholder="9+" required data-pristine-required-message="Enter Your Experiences">
 
                                                 </div>
                                             </div>
