@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>DataTables | Minia - Admin & Dashboard Template</title>
+    <title>DataTables | Priequity - Admin & Dashboard Template</title>
     <?php include 'layouts/head.php'; ?>
 
     <!-- DataTables -->

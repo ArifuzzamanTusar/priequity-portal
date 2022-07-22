@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Responsive | Minia - Admin & Dashboard Template</title>
+    <title>Responsive | Priequity - Admin & Dashboard Template</title>
     <?php include 'layouts/head.php'; ?>
 
     <!-- Responsive Table css -->

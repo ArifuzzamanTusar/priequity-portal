@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Confirm Mail | Minia - Admin & Dashboard Template</title>
+    <title>Confirm Mail | Priequity - Admin & Dashboard Template</title>
     <?php include 'layouts/head.php'; ?>
     <?php include 'layouts/head-style.php'; ?>
 
@@ -19,7 +19,7 @@
                         <div class="d-flex flex-column h-100">
                             <div class="mb-4 mb-md-5 text-center">
                                 <a href="index.php" class="d-block auth-logo">
-                                    <img src="assets/images/logo-sm.svg" alt="" height="28"> <span class="logo-txt">Minia</span>
+                                    <img src="assets/images/logo-sm.svg" alt="" height="28"> <span class="logo-txt">Priequity</span>
                                 </a>
                             </div>
                             <div class="auth-content my-auto">
@@ -41,7 +41,7 @@
                             <div class="mt-4 mt-md-5 text-center">
                                 <p class="mb-0">© <script>
                                         document.write(new Date().getFullYear())
-                                    </script> Minia . Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                                    </script> Priequity . Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
                             </div>
                         </div>
                     </div>

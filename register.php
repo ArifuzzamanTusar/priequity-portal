@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
 
-    <title>Register | Minia - Admin & Dashboard Template</title>
+    <title>Register | Priequity - Admin & Dashboard Template</title>
     <?php include 'layouts/head.php'; ?>
     <?php include 'layouts/head-style.php'; ?>
 
@@ -125,13 +125,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="d-flex flex-column h-100">
                             <div class="mb-4 mb-md-5 text-center">
                                 <a href="index.php" class="d-block auth-logo">
-                                    <img src="assets/images/logo-sm.svg" alt="" height="28"> <span class="logo-txt">Minia</span>
+                                    <img src="assets/images/logo-sm.svg" alt="" height="28"> <span class="logo-txt">Priequity</span>
                                 </a>
                             </div>
                             <div class="auth-content my-auto">
                                 <div class="text-center">
                                     <h5 class="mb-0">Register Account</h5>
-                                    <p class="text-muted mt-2">Get your free Minia account now.</p>
+                                    <p class="text-muted mt-2">Get your free Priequity account now.</p>
                                 </div>
                                 <form class="needs-validation custom-form mt-4 pt-2" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                     <div class="mb-3 <?php echo (!empty($useremail_err)) ? 'has-error' : ''; ?>">
@@ -159,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </div>
                                     
                                     <div class="mb-4">
-                                        <p class="mb-0">By registering you agree to the Minia <a href="#" class="text-primary">Terms of Use</a></p>
+                                        <p class="mb-0">By registering you agree to the Priequity <a href="#" class="text-primary">Terms of Use</a></p>
                                     </div>
                                     <div class="mb-3">
                                         <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Register</button>
@@ -197,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="mt-4 mt-md-5 text-center">
                                 <p class="mb-0">© <script>
                                         document.write(new Date().getFullYear())
-                                    </script> Minia . Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                                    </script> Priequity . Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
                             </div>
                         </div>
                     </div>

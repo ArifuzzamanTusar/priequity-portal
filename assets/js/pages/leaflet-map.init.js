@@ -1,7 +1,7 @@
 
 
 /*
-Template Name: Minia - Admin & Dashboard Template
+Template Name: Priequity - Admin & Dashboard Template
 Author: Themesbrand
 Website: https://themesbrand.com/
 Contact: themesbrand@gmail.com

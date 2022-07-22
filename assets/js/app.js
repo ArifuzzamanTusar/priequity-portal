@@ -1,5 +1,5 @@
 /*
-Template Name: Minia - Bootstrap 5 Admin & Dashboard Template
+Template Name: Priequity - Bootstrap 5 Admin & Dashboard Template
 Author: Themesbrand
 Version: 1.0.0
 Website: https://themesbrand.com/

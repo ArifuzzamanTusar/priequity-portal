@@ -7,7 +7,7 @@ require_once ("./assets/lang/en.php");
 <html lang="en" dir="rtl">
 
 <head>
-    <title><?php echo $language["Dashboard"]; ?> | Minia - Admin & Dashboard Template</title>
+    <title><?php echo $language["Dashboard"]; ?> | Priequity - Admin & Dashboard Template</title>
 
     <?php include 'layouts/head.php'; ?>
 
@@ -48,7 +48,7 @@ require_once ("./assets/lang/en.php");
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Minia</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Priequity</a></li>
                                     <li class="breadcrumb-item active">Dashboard</li>
                                 </ol>
                             </div>

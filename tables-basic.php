@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Bootstrap Basic | Minia - Admin & Dashboard Template</title>
+    <title>Bootstrap Basic | Priequity - Admin & Dashboard Template</title>
     <?php include 'layouts/head.php'; ?>
     <?php include 'layouts/head-style.php'; ?>
 
@@ -882,7 +882,7 @@
                     <div class="col-sm-6">
                         <script>
                             document.write(new Date().getFullYear())
-                        </script> © Minia.
+                        </script> © Priequity.
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">

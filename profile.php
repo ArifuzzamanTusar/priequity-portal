@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Profile | Minia - Admin & Dashboard Template</title>
+    <title>Profile | Priequity - Admin & Dashboard Template</title>
     <?php include 'layouts/head.php'; ?>
     <?php include 'layouts/head-style.php'; ?>
 
