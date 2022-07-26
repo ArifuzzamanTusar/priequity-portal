@@ -73,6 +73,49 @@ class DbClass
         return $numRows;
     }
 
+    // COUNT ALL 
+    public function countApplications( $status = "none")
+    {
+        if ($status === "none") {
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . " ");
+        }
+        if ($status === "pending") {
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `status` LIKE 'pending'");
+        }
+        if ($status === "approved") {
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `status` LIKE 'approved'");
+        }
+        if ($status === "processing") {
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `status` LIKE 'processing'");
+        }
+        if ($status === "rejected") {
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `status` LIKE 'rejected'");
+        }
+
+    }
+    // COUNT Users Applicaitions
+    public function countUserApplications($email, $status = "all")
+    {
+        if ($status === "all") {
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE '".$email."' ");
+        }
+        if ($status === "pending") {
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '".$email."' AND `status` LIKE 'pending'");
+        }
+        if ($status === "approved") {
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '".$email."' AND `status` LIKE 'approved'");
+        }
+        if ($status === "processing") {
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '".$email."' AND `status` LIKE 'processing'");
+        }
+        if ($status === "rejected") {
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '".$email."' AND `status` LIKE 'rejected'");
+        }
+    }
+
+    public function countApplicant ($role){
+        return $this -> getNumRows("SELECT * FROM " . $this->usersTable . "    WHERE `role` = ".$role."");
+    }
 
 
     // Login userdata
