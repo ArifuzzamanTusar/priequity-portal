@@ -42,12 +42,12 @@ class mailTemplate
         ';
         return $template;
     }
-    public function newAppNotification($data, $id)
+    public function newAppNotification($data, $email)
     {
         if ($_SERVER['HTTP_HOST'] == "localhost") {
-            $siteurl = "http://localhost/priequity-portal/";
+            $siteurl = "http://localhost/priequity-portal";
         } else {
-            $siteurl = "https://portal.priequity.com/";
+            $siteurl = "https://portal.priequity.com";
         }
         $template = '
         <center>
@@ -64,6 +64,7 @@ class mailTemplate
                         <br>
                         <table>
                             <tr><td>Full Name: </td>' . $data['first_name'] . $data['last_name'] . '</tr>
+                            <tr><td>Full Email: </td> <a href="mailto:'.$email.'">' . $email. '</a></tr>
                             <tr><td>Phone: </td>' . $data['phone'] . '</tr>
                             <tr><td>Company Name: </td>' . $data['company_name'] . '</tr>
                             <tr><td>Position: </td>' . $data['position'] . '</tr>

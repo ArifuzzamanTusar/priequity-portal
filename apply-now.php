@@ -183,7 +183,7 @@ $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
                         // header("location: apply-now.php?message=hoise re");
                         $success_message = "done";
                         // Admin Email 
-                        $body =  $emailTemplate -> newAppNotification($data,0);
+                        $body =  $emailTemplate -> newAppNotification($data,$getuser[0]['useremail']);
                         $portal->sendMail($admin_emails, 'New Application!', $body);
 
                      
