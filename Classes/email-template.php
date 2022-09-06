@@ -51,6 +51,7 @@ class mailTemplate
         }
         $template = '
         <center>
+        <style>td{border:1px solid #000000;}</style>
             <div style="background:#F5EEDC; padding:80px 10px; ">
                 <div style="width:600px; border-radius: 12px; background:red; overflow:hidden">
     
@@ -62,18 +63,18 @@ class mailTemplate
                         
                         <br>
                         <br>
-                        <table>
-                            <tr><td>Full Name: </td>' . $data['first_name'] . $data['last_name'] . '</tr>
-                            <tr><td>Full Email: </td> <a href="mailto:'.$email.'">' . $email. '</a></tr>
-                            <tr><td>Phone: </td>' . $data['phone'] . '</tr>
-                            <tr><td>Company Name: </td>' . $data['company_name'] . '</tr>
-                            <tr><td>Position: </td>' . $data['position'] . '</tr>
-                            <tr><td>Business Address: </td>' . $data['business_address'] . '</tr>
-                            <tr><td>Address: </td>' . $data['city'] . ", " . $data['state'] . "-" . $data['zip_code'] . ", " . $data['country'] . '</tr>
-                            <tr><td>Capital Uses: </td>' . $data['capital_uses'] . '</tr>
-                            <tr><td>Capital Need: </td>' . $data['capital_need'] . '</tr>
-                            <tr><td>Experience: </td>' . $data['experience'] . '</tr>
-                            <tr><td>Letter: </td>' . $data['letter'] . '</tr>
+                        <table >
+                            <tr><td>Full Name: </td> <td>' . $data['first_name'] . $data['last_name'] . '</td></tr>
+                            <tr><td>Full Email: </td><td> <a href="mailto:'.$email.'">' . $email. '</a> </td></tr>
+                            <tr><td>Phone: </td><td>' . $data['phone'] . '</td></tr>
+                            <tr><td>Company Name: </td><td>' . $data['company_name'] . '</td></tr>
+                            <tr><td>Position: </td><td>' . $data['position'] . '</td></tr>
+                            <tr><td>Business Address: </td><td>' . $data['business_address'] . '</td></tr>
+                            <tr><td>Address: </td><td>' . $data['city'] . ", " . $data['state'] . "-" . $data['zip_code'] . ", " . $data['country'] . '</td></tr>
+                            <tr><td>Capital Uses: </td><td>' . $data['capital_uses'] . '</td></tr>
+                            <tr><td>Capital Need: </td><td>' . $data['capital_need'] . '</td></tr>
+                            <tr><td>Experience: </td><td>' . $data['experience'] . '</td></tr>
+                            <tr><td>Letter: </td><td>' . $data['letter'] . '</td></tr>
                         </table>
                         <br>
                         
