@@ -2,8 +2,16 @@
 
 class mailTemplate
 {
+
     public function welcomeEmail($username)
     {
+
+        if ($_SERVER['HTTP_HOST'] == "localhost") {
+            $siteurl = "http://localhost/priequity-portal";
+        } else {
+            $siteurl = "https://portal.priequity.com";
+        }
+
         $template = '
         <center>
             <div style="background:#F5EEDC; padding:80px 10px; ">
@@ -18,7 +26,7 @@ class mailTemplate
                         <p>Please login to your portal account and start applying today </p>
                        
                         <br><br>
-                        <a style="padding: 20px; background:#A45716; color:#ffffff; text-decoration:none" href="' . $_SERVER['HTTP_HOST'] . "/auth-login.php" . '">Login Now</a>
+                        <a style="padding: 20px; background:#A45716; color:#ffffff; text-decoration:none" href="' . $siteurl . "/auth-login.php" . '">Login Now</a>
                         <br><br>
                     </div>
                     <div style="background:#A45716;  padding:10px 0px;">
@@ -34,8 +42,13 @@ class mailTemplate
         ';
         return $template;
     }
-    public function newAppNotification($data,$id)
+    public function newAppNotification($data, $id)
     {
+        if ($_SERVER['HTTP_HOST'] == "localhost") {
+            $siteurl = "http://localhost/priequity-portal/";
+        } else {
+            $siteurl = "https://portal.priequity.com/";
+        }
         $template = '
         <center>
             <div style="background:#F5EEDC; padding:80px 10px; ">
@@ -50,21 +63,21 @@ class mailTemplate
                         <br>
                         <br>
                         <table>
-                            <tr><td>Full Name: </td>' . $data['first_name'] . $data['last_name']. '</tr>
+                            <tr><td>Full Name: </td>' . $data['first_name'] . $data['last_name'] . '</tr>
                             <tr><td>Phone: </td>' . $data['phone'] . '</tr>
                             <tr><td>Company Name: </td>' . $data['company_name'] . '</tr>
                             <tr><td>Position: </td>' . $data['position'] . '</tr>
                             <tr><td>Business Address: </td>' . $data['business_address'] . '</tr>
-                            <tr><td>Address: </td>' . $data['city'] .", ". $data['state'] ."-". $data['zip_code'] .", ". $data['country'] .'</tr>
-                            <tr><td>Capital Uses: </td>' . $data['capital_uses'] .'</tr>
-                            <tr><td>Capital Need: </td>' . $data['capital_need'] .'</tr>
-                            <tr><td>Experience: </td>' . $data['experience'] .'</tr>
-                            <tr><td>Letter: </td>' . $data['letter'] .'</tr>
+                            <tr><td>Address: </td>' . $data['city'] . ", " . $data['state'] . "-" . $data['zip_code'] . ", " . $data['country'] . '</tr>
+                            <tr><td>Capital Uses: </td>' . $data['capital_uses'] . '</tr>
+                            <tr><td>Capital Need: </td>' . $data['capital_need'] . '</tr>
+                            <tr><td>Experience: </td>' . $data['experience'] . '</tr>
+                            <tr><td>Letter: </td>' . $data['letter'] . '</tr>
                         </table>
                         <br>
                         
                         <br><br>
-                        <a style="padding: 20px; background:#A45716; color:#ffffff; text-decoration:none" href="' . $_SERVER['HTTP_HOST'] . "/manage-application.php" . '">Manage Application</a>
+                        <a style="padding: 20px; background:#A45716; color:#ffffff; text-decoration:none" href="' . $siteurl . "/manage-application.php" . '">Manage Application</a>
                         <br><br>
                     </div>
                     <div style="background:#A45716;  padding:10px 0px;">
@@ -88,7 +101,7 @@ class mailTemplate
 
 
 
-<?php 
+<?php
 
 
 $email = new mailTemplate();
