@@ -74,7 +74,7 @@ class DbClass
     }
 
     // COUNT ALL 
-    public function countApplications( $status = "none")
+    public function countApplications($status = "none")
     {
         if ($status === "none") {
             return $this->getNumRows("SELECT * FROM " . $this->applicationTable . " ");
@@ -91,30 +91,30 @@ class DbClass
         if ($status === "rejected") {
             return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `status` LIKE 'rejected'");
         }
-
     }
     // COUNT Users Applicaitions
     public function countUserApplications($email, $status = "all")
     {
         if ($status === "all") {
-            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE '".$email."' ");
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE '" . $email . "' ");
         }
         if ($status === "pending") {
-            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '".$email."' AND `status` LIKE 'pending'");
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '" . $email . "' AND `status` LIKE 'pending'");
         }
         if ($status === "approved") {
-            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '".$email."' AND `status` LIKE 'approved'");
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '" . $email . "' AND `status` LIKE 'approved'");
         }
         if ($status === "processing") {
-            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '".$email."' AND `status` LIKE 'processing'");
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '" . $email . "' AND `status` LIKE 'processing'");
         }
         if ($status === "rejected") {
-            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '".$email."' AND `status` LIKE 'rejected'");
+            return $this->getNumRows("SELECT * FROM " . $this->applicationTable . "  WHERE `useremail` LIKE  '" . $email . "' AND `status` LIKE 'rejected'");
         }
     }
 
-    public function countApplicant ($role){
-        return $this -> getNumRows("SELECT * FROM " . $this->usersTable . "    WHERE `role` = ".$role."");
+    public function countApplicant($role)
+    {
+        return $this->getNumRows("SELECT * FROM " . $this->usersTable . "    WHERE `role` = " . $role . "");
     }
 
 
@@ -400,6 +400,7 @@ class DbClass
 
     // ||||||||||||  MAILING ||||||||||||||||||
 
+
     public function sendMail($recipient, $subject, $body)
     {
         //Create an instance; passing `true` enables exceptions
@@ -422,9 +423,19 @@ class DbClass
             //Recipients
             $mail->setFrom($portalOption['smtp_user'], 'Priequity Portal');
             // $mail->addAddress('arifuzzamantusar50@gmail.com', 'Joe User');     //Add a recipient
-            $mail->addAddress($recipient);               //Name is optional
+            // $mail->addAddress($recipient);               //Name is optional
+            // $mail->addAddress('arifuzzamant@gmail.com');               //Name is optional
+
+            if (gettype($recipient) == 'array') {
+                foreach ($recipient as $emails) {
+                    $mail->addAddress($emails);
+                }
+            } else {
+                $mail->addAddress($recipient);
+            }
+         
             // $mail->addReplyTo('info@example.com', 'Information');
-            // $mail->addCC('cc@example.com');
+            // $mail->addCC('arifuzzamant@gmail.com');
             // $mail->addBCC('bcc@example.com');
 
             //Attachments
@@ -515,5 +526,9 @@ class DbClass
     {
         $sqlQuery = "SELECT * FROM " . $this->countryTable . " ";
         return  $this->getData($sqlQuery);
+    }
+    // Email Template 
+    public function emailTemplate($content)
+    {
     }
 }

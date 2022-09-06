@@ -1,4 +1,8 @@
-<?php include 'layouts/head-main.php'; ?>
+<?php 
+include 'layouts/head-main.php'; 
+include 'Classes/email-template.php';
+$emailTemplate = new mailTemplate();
+?>
 
 <!-- Sweet Alert-->
 <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
@@ -7,6 +11,7 @@
 
 
 <?php
+
 $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
 ?>
 
@@ -177,6 +182,11 @@ $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
                         // header("location : apply-nowl.php?message=hoise re" );
                         // header("location: apply-now.php?message=hoise re");
                         $success_message = "done";
+                        // Admin Email 
+                        $body =  $emailTemplate -> newAppNotification($data,0);
+                        $portal->sendMail($admin_emails, 'New Application!', $body);
+
+                     
                     } else {
                         $submissionError = ' <div class="bg-danger text-white p-2">Something Went Wrong!</div>';
                     }

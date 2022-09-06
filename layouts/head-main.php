@@ -27,6 +27,12 @@ function debug($data){
     echo "</pre>";
 }
 
+// ======= Mailing =======
+$admin_emails = array (
+    'arifuzzamantusar50@gmail.com',
+    'arifuzzamant@gmail.com'
+);
+
 
 ?>
 <!DOCTYPE html>

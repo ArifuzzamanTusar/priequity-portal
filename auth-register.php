@@ -1,6 +1,9 @@
 <?php
 // Include config file
-require_once "layouts/config.php";
+include 'Classes/function.php';
+include 'Classes/email-template.php';
+$portal = new DbClass();
+$emailTemplate = new mailTemplate();
 
 // Define variables and initialize with empty values
 $useremail = $username =  $password = $confirm_password = "";
@@ -99,6 +102,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     mysqli_stmt_bind_param($stmt, "s", $param_useremail);
                     if (mysqli_stmt_execute($stmt)) {
                         // Redirect to login page
+                        $body = $emailTemplate -> welcomeEmail($param_username);
+                        $portal->sendMail($param_useremail, 'Welcome!', $body);
 
                         header("location: index.php");
                     }
