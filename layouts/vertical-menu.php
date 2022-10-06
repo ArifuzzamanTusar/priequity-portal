@@ -54,8 +54,8 @@
                     </form>
                 </div>
             </div>
-
-            <div class="dropdown d-none d-sm-inline-block">
+            <!-- Language Switcher Module  -->
+            <div class="dropdown d-none d-sm-inline-block module-disable">
                 <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php if ($lang == 'en') { ?>
                         <img class="me-2" src="assets/images/flags/us.jpg" alt="Header Language" height="16">
@@ -101,15 +101,15 @@
                     </a>
                 </div>
             </div>
-
+            <!-- --------------------  -->
             <div class="dropdown d-none d-sm-inline-block">
                 <button type="button" class="btn header-item" id="mode-setting-btn">
                     <i data-feather="moon" class="icon-lg layout-mode-dark"></i>
                     <i data-feather="sun" class="icon-lg layout-mode-light"></i>
                 </button>
             </div>
-
-            <div class="dropdown d-none d-lg-inline-block ms-1">
+            <!-- App Menu Module  -->
+            <div class="dropdown d-none d-lg-inline-block ms-1 module-disable">
                 <button type="button" class="btn header-item" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i data-feather="grid" class="icon-lg"></i>
                 </button>
@@ -159,8 +159,11 @@
                     </div>
                 </div>
             </div>
+            <!-- -------------------  -->
 
-            <div class="dropdown d-inline-block">
+
+            <!-- ----------- Notification Module -=------------ -->
+            <div class="dropdown d-inline-block module-disable">
                 <button type="button" class="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i data-feather="bell" class="icon-lg"></i>
                     <span class="badge bg-danger rounded-pill">5</span>
@@ -246,12 +249,15 @@
                     </div>
                 </div>
             </div>
-
-            <div class="dropdown d-inline-block">
+            <!-- ------------------ -->
+            
+            <!-- Theme Customizer Module  -->
+            <div class="dropdown d-inline-block module-disable">
                 <button type="button" class="btn header-item right-bar-toggle me-2">
                     <i data-feather="settings" class="icon-lg"></i>
                 </button>
             </div>
+            <!-- -------------------------  -->
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -261,8 +267,8 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="apps-contacts-profile.php"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> <?php echo $language["Profile"]; ?></a>
-                    <a class="dropdown-item" href="auth-lock-screen.php"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> <?php echo $language["Lock_screen"]; ?> </a>
+                    <a class="dropdown-item" href="profile.php"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> <?php echo $language["Profile"]; ?></a>
+                    <!-- <a class="dropdown-item" href="auth-lock-screen.php"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> <?php echo $language["Lock_screen"]; ?> </a> -->
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="logout.php"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> <?php echo $language["Logout"]; ?></a>
                 </div>
@@ -415,7 +421,9 @@
 
             </ul>
 
-            <div class="card sidebar-alert border-0 text-center mx-4 mb-0 mt-5">
+            <!-- Promotion Module  [module-disable]-->
+
+            <div class="card sidebar-alert border-0 text-center mx-4 mb-0 mt-5   module-disable">
                 <div class="card-body">
                     <img src="assets/images/giftbox.png" alt="">
                     <div class="mt-4">
@@ -425,6 +433,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- -------------------- -->
         </div>
         <!-- Sidebar -->
     </div>

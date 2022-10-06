@@ -414,7 +414,7 @@ $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
                                             <div class="col-xl-12 col-md-12 py-3">
                                                 <label class="form-label ">More Data</label>
                                                 <textarea name="letter" id="ckeditor-classic">
-                                                       &lt;p&gt;This is some sample content.&lt;/p&gt;
+                                                       &lt;p&gt;Any additional information. &lt;/p&gt;
                                                 </textarea>
                                             </div>
                                             <div class="col-xl-12 col-md-12 py-3">

@@ -184,8 +184,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Register</button>
                                     </div>
                                 </form>
-
-                                <div class="mt-4 pt-2 text-center">
+                                <!-- Social Login Module  -->
+                                <div class="mt-4 pt-2 text-center module-disable">
                                     <div class="signin-other-title">
                                         <h5 class="font-size-14 mb-3 text-muted fw-medium">- Sign up using -</h5>
                                     </div>
@@ -208,7 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         </li>
                                     </ul>
                                 </div>
-
+                                <!-- ------------------------ -->
                                 <div class="mt-5 text-center">
                                     <p class="text-muted mb-0">Already have an account ? <a href="auth-login.php" class="text-primary fw-semibold"> Login </a> </p>
                                 </div>
@@ -216,7 +216,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="mt-4 mt-md-5 text-center">
                                 <p class="mb-0">© <script>
                                         document.write(new Date().getFullYear())
-                                    </script> Priequity . Crafted with <i class="mdi mdi-heart text-danger"></i> by Arifuzzaman Tusar</p>
+                                    </script> <a href="https://priequity.com/">Priequity LLC</a> </p>
                             </div>
                         </div>
                     </div>

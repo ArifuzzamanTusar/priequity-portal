@@ -95,7 +95,7 @@ if (isset($_POST['submit'])) {
                             <div class="mt-4 mt-md-5 text-center">
                                 <p class="mb-0">© <script>
                                         document.write(new Date().getFullYear())
-                                    </script> Priequity. Crafted with <i class="mdi mdi-heart text-danger"></i> by Arifuzzaman Tusar</p>
+                                    </script> <a href="http://priequity.com/">Priequity LLC</a> </p>
                             </div>
                         </div>
                     </div>
