@@ -30,7 +30,8 @@ function debug($data){
 // ======= Mailing =======
 $admin_emails = array (
     'support@priequity.com',
-    'info@priequity.com'
+    'info@priequity.com',
+    'seymantha@priequity.com'
 );
 
 
