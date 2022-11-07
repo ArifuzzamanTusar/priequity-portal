@@ -396,7 +396,7 @@ $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
 
                                             <h5>Documents</h5>
                                             <div class="col-xl-12 col-md-12">
-                                                <p><b>Instructions for the PELOC Document</b></p>
+                                                <p><b>Instructions for the PELOC Application</b></p>
                                                 <ul>
                                                     <li>Download the PELOC application from <a href="doc/PELOC.pdf" target="_blank" rel="noopener noreferrer"><strong>here</strong> </a></li>
                                                     <li>Fill Up the fillable PDF document using any pdf tools</li>
@@ -404,6 +404,7 @@ $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
                                                 </ul>
                                                 <div class="mb-3">
                                                     <!-- <label class="form-label ">Upload Business Plan for review (document)</label> -->
+                                                    <label class="form-label ">Upload the PELOC Application</label>
 
 
                                                     <input type="file" class="form-control" name="attachment" id="" placeholder="" aria-describedby="fileHelpId" accept=".pdf, .docx, .doc, .png, .jpg, .rtf, .xls">
