@@ -1,5 +1,5 @@
-<?php 
-include 'layouts/head-main.php'; 
+<?php
+include 'layouts/head-main.php';
 include 'Classes/email-template.php';
 $emailTemplate = new mailTemplate();
 ?>
@@ -183,10 +183,8 @@ $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
                         // header("location: apply-now.php?message=hoise re");
                         $success_message = "done";
                         // Admin Email 
-                        $body =  $emailTemplate -> newAppNotification($data,$getuser[0]['useremail']);
+                        $body =  $emailTemplate->newAppNotification($data, $getuser[0]['useremail']);
                         $portal->sendMail($admin_emails, 'New Application!', $body);
-
-                     
                     } else {
                         $submissionError = ' <div class="bg-danger text-white p-2">Something Went Wrong!</div>';
                     }
@@ -394,10 +392,18 @@ $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
                                                 </div>
                                             </div>
 
+                                            <div class="py-3"></div>
 
+                                            <h5>Documents</h5>
                                             <div class="col-xl-12 col-md-12">
+                                                <p><b>Instructions for the PELOC Document</b></p>
+                                                <ul>
+                                                    <li>Download the PELOC application from <a href="https://drive.google.com/file/d/11H8DCVHfO20_1gKXxCLWWdGDUTxhQ13j/view?usp=sharing" target="_blank" rel="noopener noreferrer"><strong>here</strong> </a></li>
+                                                    <li>Fill Up the fillable PDF Peloc document.</li>
+                                                    <li>Upload the Document</li>
+                                                </ul>
                                                 <div class="mb-3">
-                                                    <label class="form-label ">Upload Business Plan for review (document)</label>
+                                                    <!-- <label class="form-label ">Upload Business Plan for review (document)</label> -->
 
 
                                                     <input type="file" class="form-control" name="attachment" id="" placeholder="" aria-describedby="fileHelpId" accept=".pdf, .docx, .doc, .png, .jpg, .rtf, .xls">
@@ -412,9 +418,9 @@ $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
                                             </div>
 
                                             <div class="col-xl-12 col-md-12 py-3">
-                                                <label class="form-label ">More Data</label>
+                                                <label class="form-label ">Addictional Information</label>
                                                 <textarea name="letter" id="ckeditor-classic">
-                                                       &lt;p&gt;Any additional information. &lt;/p&gt;
+
                                                 </textarea>
                                             </div>
                                             <div class="col-xl-12 col-md-12 py-3">
@@ -430,6 +436,14 @@ $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
                                         </div>
                                         <!-- end row -->
 
+                                        <!-- acceptation  -->
+                                        <div class="form-group mb-3 form-check">
+                                            <input id="term-check01" type="checkbox" class="form-check-input" name="future" required data-pristine-required-message="You must accept the Term" />
+                                            <label class="form-check-label" for="term-check01">I accept the <a href="https://priequity.com/terms-and-condition/" target="_blank" rel="noopener noreferrer">terms and conditions</a> and agree to pay a $7,0000.00 Application fee</label><br />
+                                        </div>
+
+
+                                        <!-- -----  -->
 
                                         <div class="form-group">
                                             <button name="create_application" type="submit" class="btn btn-primary waves-effect waves-light">Submit Application</button>

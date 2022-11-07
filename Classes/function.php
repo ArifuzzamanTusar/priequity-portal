@@ -477,6 +477,9 @@ class DbClass
         if ($status == 'approved') {
             echo '<span class="fw-bold px-3 py-2 rounded-pill bg-soft-success text-success"> ' . $status . '</span> ';
         }
+        if ($status == 'unpaid') {
+            echo '<span class="fw-bold px-3 py-2 rounded-pill bg-soft-danger text-danger"> ' . $status . '</span> ';
+        }
         if ($status == 'processing') {
             echo '<span class="fw-bold px-3 py-2 rounded-pill bg-soft-success text-success"> ' . $status . '</span> ';
         }

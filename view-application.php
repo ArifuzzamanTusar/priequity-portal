@@ -8,6 +8,10 @@ if (isset($_GET['app-id'])) {
     }
     $singledata = $portal->getSingleAppData($_REQUEST['app-id'])[0];
 
+    if ($singledata['status'] === 'unpaid') {
+        $status_bg = 'bg-danger';
+        $status_color = 'text-white';
+    }
     if ($singledata['status'] === 'pending') {
         $status_bg = 'bg-warning';
         $status_color = 'text-white';
@@ -69,12 +73,13 @@ $token = md5($getuser[0]['username']);
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0 font-size-18">Application #<?php echo $singledata['id'] ?></h4>
+                            <h4 class="mb-sm-0 font-size-18">Application <?php // echo $singledata['id'] 
+                                                                            ?></h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Application</a></li>
-                                    <li class="breadcrumb-item active">Application#<?php echo $singledata['id'] ?></li>
+                                    <!-- <li class="breadcrumb-item active">Application#<?php echo $singledata['id'] ?></li> -->
                                 </ol>
                             </div>
 
@@ -101,6 +106,17 @@ $token = md5($getuser[0]['username']);
 
                                     <div class="py-5 text-center">
                                         <div class="text-muted">Our Team is reviewing your application please be patient!</div>
+                                    </div>
+
+                                <?php
+
+                                }
+                                if ($singledata['status'] == "unpaid") {
+                                ?>
+
+                                    <div class="py-5 text-center">
+                                        <h3>Please Pay the Invoice</h3>
+                                        <div class="text-muted">We have sent you an invoice through email. Please pay the Application Fee to proceed</div>
                                     </div>
 
                                 <?php
@@ -185,7 +201,7 @@ $token = md5($getuser[0]['username']);
                                                                                         <div class="card card-body">
 
                                                                                             <?php
-                                                                                            if (isset($_POST['request_file_'.$conv['id']])) {
+                                                                                            if (isset($_POST['request_file_' . $conv['id']])) {
                                                                                                 $ask_for = $_REQUEST['req_message'];
                                                                                                 $conv_id = $conv['id'];
                                                                                                 $app_id = $singledata['id'];
@@ -269,10 +285,10 @@ $token = md5($getuser[0]['username']);
                                                                                                 </div>
                                                                                                 <div class="mb-3">
                                                                                                     <label for="" class="form-label">Remarks </label>
-                                                                                                    <textarea class="form-control " name="req_message" ></textarea>
+                                                                                                    <textarea class="form-control " name="req_message"></textarea>
                                                                                                 </div>
 
-                                                                                                <input name="request_file_<?php echo  $conv['id']?>" id="" class="col-12 btn btn-primary waves-effect waves-light" type="submit" value="Submit Files">
+                                                                                                <input name="request_file_<?php echo  $conv['id'] ?>" id="" class="col-12 btn btn-primary waves-effect waves-light" type="submit" value="Submit Files">
                                                                                             </form>
 
 

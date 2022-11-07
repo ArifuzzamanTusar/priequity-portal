@@ -8,10 +8,15 @@ if (isset($_GET['app-id'])) {
     }
     $singledata = $portal->getSingleAppData($_REQUEST['app-id'])[0];
 
+    if ($singledata['status'] === 'unpaid') {
+        $status_bg = 'bg-danger';
+        $status_color = 'text-white';
+    }
     if ($singledata['status'] === 'pending') {
         $status_bg = 'bg-warning';
         $status_color = 'text-white';
     }
+
     if ($singledata['status'] === 'processing') {
         $status_bg = 'bg-info';
         $status_color = 'text-white';
@@ -100,6 +105,20 @@ $token = md5($getuser[0]['username']);
                                 ?>
 
                                     <div class="py-5 text-center">
+                                        <p>Analyze the application. Send the invoice to the client if everything looks good.</p>
+                                        <p>Client's Email: <a href="mailto:<?php echo $singledata['useremail'] ?>"><?php echo $singledata['useremail'] ?></a></p>
+                                        <a class="btn btn-primary waves-effect waves-light" href="action.php?update-app-status=1&app_id=<?php echo $singledata['id'] ?>&app_status=unpaid&token=<?php echo $token ?>">Invoice Sent, Proceed to the Next Step</a>
+                                    </div>
+
+                                <?php
+
+                                }
+
+                                if ($singledata['status'] == "unpaid") {
+                                ?>
+
+                                    <div class="py-5 text-center">
+                                        <p>Check the payment gateway. If the client paid the fees, proceed with the application.</p>
                                         <a class="btn btn-primary waves-effect waves-light" href="action.php?update-app-status=1&app_id=<?php echo $singledata['id'] ?>&app_status=processing&token=<?php echo $token ?>">Process This Application</a>
                                     </div>
 
@@ -360,7 +379,7 @@ $token = md5($getuser[0]['username']);
                                                         $app_id = $singledata['id'];
 
                                                         if ($portal->updateApplicationStatus($singledata['id'], $_REQUEST['status'])) {
-                                                          
+
                                                             echo '<script> window.location.replace("application.php?app-id=' . $app_id . '");  </script>';
                                                         } else {
                                                             echo "error";
@@ -374,6 +393,7 @@ $token = md5($getuser[0]['username']);
                                                             <label for="" class="form-label">Change Application Status</label>
                                                             <select class="form-control" name="status" id="">
                                                                 <option value="approved">approved</option>
+                                                                <option value="unpaid">unpaid</option>
                                                                 <option value="processing">processing</option>
                                                                 <option value="pending">pending</option>
                                                                 <option value="rejected">rejected</option>
