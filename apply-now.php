@@ -399,7 +399,7 @@ $getUserMeta = $portal->userAllData($getuser[0]['useremail']);
                                                 <p><b>Instructions for the PELOC Document</b></p>
                                                 <ul>
                                                     <li>Download the PELOC application from <a href="doc/PELOC.pdf" target="_blank" rel="noopener noreferrer"><strong>here</strong> </a></li>
-                                                    <li>Fill Up the fillable PDF Peloc document.</li>
+                                                    <li>Fill Up the fillable PDF document using any pdf tools</li>
                                                     <li>Upload the Document</li>
                                                 </ul>
                                                 <div class="mb-3">
