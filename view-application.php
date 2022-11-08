@@ -16,6 +16,10 @@ if (isset($_GET['app-id'])) {
         $status_bg = 'bg-warning';
         $status_color = 'text-white';
     }
+    if ($singledata['status'] === 'require-files') {
+        $status_bg = 'bg-warning';
+        $status_color = 'text-white';
+    }
     if ($singledata['status'] === 'processing') {
         $status_bg = 'bg-info';
         $status_color = 'text-white';
@@ -107,6 +111,21 @@ $token = md5($getuser[0]['username']);
                                     <div class="py-5 text-center">
                                         <div class="text-muted">Our Team is reviewing your application please be patient!</div>
                                     </div>
+
+                                <?php
+
+                                }
+                                if ($singledata['status'] == "require-files") {
+                                ?>
+
+                                    <div class="py-5 text-center">
+                                        <div class=" h4 p-3 ">Upload Required Files</div>
+                                        <div class="text-muted">Upload all of the necessary files listed below, afterward apply for review documents.</div>
+                                        <small><i>pdf,doc,docx are aceptable</i> </small>
+                                    </div>
+                                    <!-- Upload required Files  -->
+                                    <?php include "_upload_requiredfiles.php" ?>
+
 
                                 <?php
 

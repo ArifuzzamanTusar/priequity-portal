@@ -16,6 +16,10 @@ if (isset($_GET['app-id'])) {
         $status_bg = 'bg-warning';
         $status_color = 'text-white';
     }
+    if ($singledata['status'] === 'require-files') {
+        $status_bg = 'bg-warning';
+        $status_color = 'text-white';
+    }
 
     if ($singledata['status'] === 'processing') {
         $status_bg = 'bg-info';
@@ -29,6 +33,7 @@ if (isset($_GET['app-id'])) {
         $status_bg = 'bg-success';
         $status_color = 'text-white';
     }
+
 } else {
     die("invalid prams");
 }
@@ -108,6 +113,18 @@ $token = md5($getuser[0]['username']);
                                         <p>Analyze the application. Send the invoice to the client if everything looks good.</p>
                                         <p>Client's Email: <a href="mailto:<?php echo $singledata['useremail'] ?>"><?php echo $singledata['useremail'] ?></a></p>
                                         <a class="btn btn-primary waves-effect waves-light" href="action.php?update-app-status=1&app_id=<?php echo $singledata['id'] ?>&app_status=unpaid&token=<?php echo $token ?>">Invoice Sent, Proceed to the Next Step</a>
+                                    </div>
+
+                                <?php
+
+                                }
+                                if ($singledata['status'] == "require-files") {
+                                ?>
+
+                                    <div class="py-5 text-center">
+                                        <p>Waiting for Clients to Upload the Required Files</p>
+                                        <p>Client's Email: <a href="mailto:<?php echo $singledata['useremail'] ?>"><?php echo $singledata['useremail'] ?></a></p>
+                                        <!-- <a class="btn btn-primary waves-effect waves-light" href="action.php?update-app-status=1&app_id=<?php echo $singledata['id'] ?>&app_status=unpaid&token=<?php echo $token ?>">Invoice Sent, Proceed to the Next Step</a> -->
                                     </div>
 
                                 <?php
@@ -396,6 +413,7 @@ $token = md5($getuser[0]['username']);
                                                                 <option value="unpaid">unpaid</option>
                                                                 <option value="processing">processing</option>
                                                                 <option value="pending">pending</option>
+                                                                <option value="require-files">Require Files</option>
                                                                 <option value="rejected">rejected</option>
                                                             </select>
                                                         </div>

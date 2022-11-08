@@ -31,6 +31,7 @@ class DbClass
     private $applicationTable = 'application';
     private $documentsTable = 'documents';
     private $portalTable = 'portal_option';
+    private $additionalDocTable = 'additional_documents';
 
     private $dbConnect = false;
 
@@ -366,6 +367,44 @@ class DbClass
         return  $this->getData($sqlQuery);
     }
 
+
+    // Working with Addictional Documents (require-files states)
+
+    public function saveApplicationFiles($data)
+    {
+
+        $sqlInsert = "
+			INSERT INTO " . $this->additionalDocTable . "(
+                app_id,
+                user,
+                document_name,
+                file_name
+                ) 
+			VALUES (
+                '" . $data['app_id'] . "',
+                '" . $data['username'] . "',
+                '" . $data['document_name'] . "',
+                '" . $data['attachment'] . "'
+
+                )";
+
+        if (mysqli_query($this->dbConnect, $sqlInsert)) {
+            return true;
+        }
+    }
+
+    public function checkDocumentExists($app_id, $document_name)
+    {
+        $sql = "SELECT * FROM " . $this->additionalDocTable . " WHERE `app_id` LIKE '" . $app_id . "' AND `document_name` LIKE '" . $document_name . "' ";
+        return  $this->getNumRows($sql);
+    }
+    public function GetDocument($app_id, $document_name)
+    {
+        $sql = "SELECT * FROM " . $this->additionalDocTable . " WHERE `app_id` LIKE '" . $app_id . "' AND `document_name` LIKE '" . $document_name . "' ";
+        return  $this->getData($sql);
+    }
+
+
     // ++++++}}}}}}}}|||||| UTILITIES ||||||||||{{{{{{{{{{{+++++++++
 
     // SMTP
@@ -433,7 +472,7 @@ class DbClass
             } else {
                 $mail->addAddress($recipient);
             }
-         
+
             // $mail->addReplyTo('info@example.com', 'Information');
             // $mail->addCC('arifuzzamant@gmail.com');
             // $mail->addBCC('bcc@example.com');
@@ -476,6 +515,9 @@ class DbClass
     {
         if ($status == 'approved') {
             echo '<span class="fw-bold px-3 py-2 rounded-pill bg-soft-success text-success"> ' . $status . '</span> ';
+        }
+        if ($status == 'require-files') {
+            echo '<span class="fw-bold px-3 py-2 rounded-pill bg-soft-danger text-danger"> ' . $status . '</span> ';
         }
         if ($status == 'unpaid') {
             echo '<span class="fw-bold px-3 py-2 rounded-pill bg-soft-danger text-danger"> ' . $status . '</span> ';

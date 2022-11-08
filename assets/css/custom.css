@@ -1,3 +1,17 @@
 .module-disable{
     display: none !important;
 }
+
+
+/* File_Content  */
+.file-content .icon{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    font-size: 25px;
+    
+
+}
