@@ -41,6 +41,18 @@ if (isset($_GET['app-id'])) {
 
 $token = md5($getuser[0]['username']);
 
+// User Access control 
+$app_user = $singledata['username'];
+$session_user = $getuser[0]['username'];
+
+if ($app_user !== $session_user) {
+    echo "<script> window.location.replace('unauthorised.php')</script>";
+    exit;
+}
+// --------------
+
+
+
 
 ?>
 
@@ -92,6 +104,24 @@ $token = md5($getuser[0]['username']);
                 </div>
                 <!-- end page title -->
 
+                <!-- Template Functions  -->
+                <?php
+                // App File Submit 
+
+                if (isset($_GET['file-submit-for-review'])) {
+                    $app_id = $_REQUEST['app-id'];
+                    $app_status = 'pending';
+
+                    if ($portal->updateApplicationStatus($app_id, $app_status)) {
+                        echo "<script> window.location.replace('view-application.php?app-id=" . $app_id . "')</script>";
+                        // header("location: view-application.php?app-id=$app_id");
+                    }
+                }
+
+                ?>
+
+                <!-- -------------------  -->
+
 
 
                 <!-- ###############################  TABLE START #############################  -->
@@ -125,6 +155,10 @@ $token = md5($getuser[0]['username']);
                                     </div>
                                     <!-- Upload required Files  -->
                                     <?php include "_upload_requiredfiles.php" ?>
+
+                                    <div class="submit-files">
+                                        <a class="btn btn-success waves-effect waves-light" href="?file-submit-for-review=1&app-id=<?php echo $singledata['id'] ?>">Submit For Review</a>
+                                    </div>
 
 
                                 <?php
@@ -214,7 +248,7 @@ $token = md5($getuser[0]['username']);
 
 
                                                                                     <a class="text-center d-block text-primary p-2 outline-none btn-link waves-effect waves-dark" data-bs-toggle="collapse" href="#que<?php echo $conv['id'] ?>" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                                                        <strong>Submit Documents</strong>
+                                                                                        <strong>Submit Responses</strong>
                                                                                     </a>
                                                                                     <div class="collapse my-2" id="que<?php echo $conv['id'] ?>">
                                                                                         <div class="card card-body">
@@ -301,9 +335,10 @@ $token = md5($getuser[0]['username']);
                                                                                                 <div class="mb-3">
                                                                                                     <label for="" class="form-label">Your Files </label>
                                                                                                     <input type="file" class="form-control" name="fileUpload[]" id="file" multiple='multiple'>
+                                                                                                    <small>You can select Multiple Files</small>
                                                                                                 </div>
                                                                                                 <div class="mb-3">
-                                                                                                    <label for="" class="form-label">Remarks </label>
+                                                                                                    <label for="" class="form-label">Message </label>
                                                                                                     <textarea class="form-control " name="req_message"></textarea>
                                                                                                 </div>
 
@@ -384,9 +419,34 @@ $token = md5($getuser[0]['username']);
                                 </div>
 
                             </div>
-
-
                         </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Documents</h4>
+                                <hr>
+                                <?php include '_show_files.php'; ?>
+
+                                <br>
+                                <button class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Manage Documents</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Managing Documents</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <?php include '_upload_requiredfiles.php';?>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
 
 
                         <!-- end cardaa -->

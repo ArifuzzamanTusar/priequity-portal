@@ -395,12 +395,12 @@ class DbClass
 
     public function checkDocumentExists($app_id, $document_name)
     {
-        $sql = "SELECT * FROM " . $this->additionalDocTable . " WHERE `app_id` LIKE '" . $app_id . "' AND `document_name` LIKE '" . $document_name . "' ";
+        $sql = "SELECT * FROM " . $this->additionalDocTable . " WHERE `app_id` LIKE '" . $app_id . "' AND `document_name` LIKE '" . $document_name . "' ORDER BY created_at DESC";
         return  $this->getNumRows($sql);
     }
     public function GetDocument($app_id, $document_name)
     {
-        $sql = "SELECT * FROM " . $this->additionalDocTable . " WHERE `app_id` LIKE '" . $app_id . "' AND `document_name` LIKE '" . $document_name . "' ";
+        $sql = "SELECT * FROM " . $this->additionalDocTable . " WHERE `app_id` LIKE '" . $app_id . "' AND `document_name` LIKE '" . $document_name . "' ORDER BY created_at DESC ";
         return  $this->getData($sql);
     }
 

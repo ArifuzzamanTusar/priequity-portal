@@ -1,25 +1,7 @@
 <?php
-// Indexing 
-// $key = Array Key / document 
-// $files[0] = 
-
-$required_files = array(
-    'income_statement' => array("income_statement", "Income Statement", "Past five years or less starting with company establishment"),
-    'balance_sheets' => array("balance_sheets", "Balance Sheets", "Past five years or less starting with company establishment"),
-    'cash_flow_statements' => array("cash_flow_statements", "Cash Flow Statements", "Past five years or less starting with company establishment"),
-    'tax_returns' => array("tax_returns", "Tax Returns", "Past five years or less starting with company establishment"),
-    'net_worth_statement' => array("net_worth_statement", " Net Worth Statement", "Net Worth Statement/s for All Equity Owners That Have A 5% Or Higher Ownership Stake.
-    "),
-    'business_plan' => array("business_plan", "Business Plan", "Business Plan Including A 2 Year Forecast/Proforma & Management Bios."),
-    'business_bank_statements' => array("business_bank_statements", "Business Bank Statements", "Business Plan Including A 2 Year Forecast/Proforma & Management Bios."),
-    'business_bank_statements' => array("business_bank_statements", "Business Bank Statements", "Previous 5 Month’s Business Bank Statements for All Business Bank Accounts."),
-    'post_closing' => array("post_closing", "Post-Closing", "Post-Closing Balance Assuming Term Sheet Terms/Rates."),
-    'incorporation' => array("incorporation", "Articles of Incorporation", "Articles of Incorporation, Corporate Bylaws/Operating Agreement, & A Recent Certificate of Good Standing."),
-    'stock' => array("stock", "stock", "Capitalization Table of All Outstanding Stock Shares, Stock Warrants, & Stock Options."),
-    'intellectual_property' => array("intellectual_property", "Intellectual Property", "All Registered Intellectual Property"),
-);
 
 
+include '_file_lists.php';
 
 
 ?>
@@ -103,15 +85,15 @@ $required_files = array(
                 ?>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="file-content d-flex align-items-center">
-                            <div class="icon bg-success  text-light"><i class="bx bx-check"></i></div>
+                            <!-- <div class="icon bg-success  text-light"><i class="bx bx-check"></i></div> -->
                             <div class="file-content p-2">
-                                <div class="text-start h6 m-0"> <?php echo $files[1] ?> Document : Uploaded </div>
+                                <div class="text-start  m-0"><label> <?php echo $files[1] ?> Document : <span class="badge bg-success fs-6">Uploaded</span> </label> </div>
                             </div>
 
                         </div>
 
                         <div class="action">
-                            <a href="">Edit</a>  | <a href="_uploads/<?php echo $portal->GetDocument($application_id, $document_name)[0]['file_name'] ?>">Download</a>
+                            <!-- <a href="">Edit</a>  | <a href="_uploads/<?php echo $portal->GetDocument($application_id, $document_name)[0]['file_name'] ?>">Download</a> -->
                         </div>
                     </div>
                 <?php

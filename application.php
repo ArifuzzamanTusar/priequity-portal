@@ -97,7 +97,7 @@ $token = md5($getuser[0]['username']);
 
                 <!-- ###############################  TABLE START #############################  -->
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <div class="card">
                             <div class="card-body">
 
@@ -292,7 +292,7 @@ $token = md5($getuser[0]['username']);
                         </div>
 
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="card">
                             <div class="card-body">
                                 <h4>Application Details</h4>
@@ -315,10 +315,13 @@ $token = md5($getuser[0]['username']);
 
                                 if (isset($singledata['attachment']) && strlen($singledata['attachment']) !== 0) {
                                 ?>
-                                    <div><a class=" py-3 px-5 attachments bg-success text-white waves-effect waves-light" href="_uploads/<?php echo $singledata['attachment']  ?>">Download Attachment (<?php echo $singledata['attachment'] ?>)</a> </div>
+                                    <div><a class=" py-3 px-5 attachments bg-success text-white waves-effect waves-light" href="_uploads/<?php echo $singledata['attachment']  ?>">Download PELOC (<?php echo $singledata['attachment'] ?>)</a> </div>
 
                                 <?php
 
+                                }
+                                else {
+                                    echo "<p><strong>PELOC Document: </strong> <span class='text-danger'>Not Uploaded</span></p>";
                                 }
 
                                 ?>
@@ -333,6 +336,16 @@ $token = md5($getuser[0]['username']);
 
 
                         </div>
+                        <!-- ============Documents ========== -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Documents</h4>
+                                <hr>
+                                <?php include '_show_files.php'; ?>
+
+                            </div>
+                        </div>
+                        <!-- ================================ -->
 
                         <div class="card">
                             <div class="card-body p-2">
