@@ -33,7 +33,7 @@ class DbClass
     private $portalTable = 'portal_option';
     private $additionalDocTable = 'additional_documents';
 
-    private $dbConnect = false;
+    public  $dbConnect = false;
 
 
     // DB Connect 
@@ -485,7 +485,7 @@ class DbClass
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = $subject;
             $mail->Body    = $body;
-            $mail->AltBody = 'Your Browser doesnt support the email';
+            $mail->AltBody = 'Welcome to priequity LLC';
 
             $mail->send();
         } catch (Exception $e) {

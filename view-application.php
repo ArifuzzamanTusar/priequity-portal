@@ -172,13 +172,16 @@ if ($app_user !== $session_user) {
                                         <div class="text-muted">We have sent you an invoice through email. Please pay the Application Fee to proceed</div>
                                     </div>
 
+
                                 <?php
 
+
                                 }
+
                                 if ($singledata['status'] == "processing") {
                                 ?>
 
-
+                                    <!-- |||||||| PROCESSING STATE ||||||| -->
 
                                     <div class="card ">
 
@@ -186,185 +189,205 @@ if ($app_user !== $session_user) {
                                         <div class="conv_areaa">
                                             <!-- ====================================================== -->
                                             <!-- ============== CONV AREA Starts ======================= -->
-                                            <div class="chat-conversation p-3" data-simplebar>
+                                            <div class=" p-3">
 
                                                 <?php
                                                 $conv_list = $portal->requestFileList($singledata['id']);
 
                                                 foreach ($conv_list as $conv) {
                                                     $conv_date = date_create($conv['created_at']);
+                                                    $s_files =  unserialize($conv['files']);
+
+
+                                                    if ($s_files && count($s_files) > 0) {
                                                 ?>
+                                                        <!-- If file Found, Then show Submitted Files  -->
+                                                        <div class="conversation-list my-4">
+                                                            <div class="shadow p-3">
 
 
-                                                    <ul class="list-unstyled mb-0">
-                                                        <li>
-                                                            <div class="conversation-list">
-                                                                <div class="shadow p-3">
-                                                                    <div class="admin_message">
-                                                                        <span class="date py-2 px-3 rounded-pill " style="background:rgba(162, 255, 177,0.5)"> <i class="fas fa-clock"></i> <?php echo date_format($conv_date, "d F - g:ia") ?> </span>
-                                                                        <div class="p-2"></div>
-                                                                        <div class="text-success">
-                                                                            <?php echo $conv['ask_for'] ?>
-                                                                        </div>
-                                                                        <hr>
-                                                                        <div class="Submission_area">
-
-                                                                            <?php
-                                                                            $s_files =  unserialize($conv['files']);
+                                                                <div class="admin_message">
+                                                                    <span class="date py-2 px-3 rounded-pill " style="background:rgba(162, 255, 177,0.5)"> <i class="fas fa-clock"></i> <?php echo date_format($conv_date, "d F - g:ia") ?> </span>
+                                                                    <div class="p-2"></div>
+                                                                    <div class="text-dark">
+                                                                        <p class="text-primary my-0"><strong>Message: </strong></p>
+                                                                        <?php echo $conv['ask_for'] ?>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="Submission_area">
 
 
-                                                                            if ($s_files && count($s_files) > 0) {
+                                                                        <div class="submitted_files">
+                                                                            <h6 class="text-primary"> <i class="fas fa-reply"></i> Responses</h6>
+                                                                            <div class="">Remarks: <?php echo $conv['submissions'] ?> </div>
+                                                                            <p class="m-0">Files:</p>
+                                                                            <div class="d-flex flex-wrap">
 
-                                                                            ?>
-                                                                                <!-- Submitted Files  -->
-                                                                                <div class="submitted_files">
-                                                                                    <h6 class="text-primary"> <i class="fas fa-reply"></i> Submitted Files</h6>
-                                                                                    <div class=""> <?php echo $conv['submissions'] ?> </div>
-                                                                                    <div class="d-flex flex-wrap">
-                                                                                        <?php
-                                                                                        foreach ($s_files as $files) {
-                                                                                        ?>
-                                                                                            <div class="my-2 me-2 px-4 py-2 rounded-pill bg-info text-white">
-                                                                                                <?php echo $files ?>
-                                                                                            </div>
-                                                                                        <?php
-                                                                                        }
-                                                                                        ?>
-
-
+                                                                                <?php
+                                                                                foreach ($s_files as $files) {
+                                                                                ?>
+                                                                                    <div class="my-2 me-2 px-4 py-2 rounded-pill bg-info text-white">
+                                                                                        <?php echo $files ?>
                                                                                     </div>
-                                                                                </div>
-                                                                                <!-- Submitted Files end -->
-                                                                            <?php
-
-
-                                                                            } else {
-
-                                                                            ?>
-
-                                                                                <!-- Submit Files  -->
-
-                                                                                <div class="submit_files">
-
-
-                                                                                    <a class="text-center d-block text-primary p-2 outline-none btn-link waves-effect waves-dark" data-bs-toggle="collapse" href="#que<?php echo $conv['id'] ?>" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                                                        <strong>Submit Responses</strong>
-                                                                                    </a>
-                                                                                    <div class="collapse my-2" id="que<?php echo $conv['id'] ?>">
-                                                                                        <div class="card card-body">
-
-                                                                                            <?php
-                                                                                            if (isset($_POST['request_file_' . $conv['id']])) {
-                                                                                                $ask_for = $_REQUEST['req_message'];
-                                                                                                $conv_id = $conv['id'];
-                                                                                                $app_id = $singledata['id'];
-
-                                                                                                $uploaded_files = array();
-
-
-                                                                                                $uploadsDir = __DIR__ . "/_uploads/";
-                                                                                                // $allowedFileType = array('jpg', 'png', 'jpeg');
-
-
-
-                                                                                                // Velidate if files exist
-                                                                                                if (!empty(array_filter($_FILES['fileUpload']['name']))) {
-
-                                                                                                    // Loop through file items
-                                                                                                    foreach ($_FILES['fileUpload']['name'] as $id => $val) {
-                                                                                                        // Get files upload path
-
-                                                                                                        $getfileName        = $_FILES['fileUpload']['name'][$id];
-                                                                                                        $fileName        = $portal->slugify($getfileName);
-                                                                                                        $tempLocation    = $_FILES['fileUpload']['tmp_name'][$id];
-                                                                                                        $targetFilePath  = $uploadsDir . $fileName;
-                                                                                                        $fileType        = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
-                                                                                                        $uploadDate      = date('Y-m-d-H-i-s');
-                                                                                                        $uploadOk = 1;
-
-                                                                                                        // if(in_array($fileType, $allowedFileType))
-                                                                                                        if ($fileType !== 'php') {
-                                                                                                            if (move_uploaded_file($tempLocation, $targetFilePath)) {
-                                                                                                                $sqlVal = $fileName;
-                                                                                                            } else {
-                                                                                                                $response = array(
-                                                                                                                    "status" => "alert-danger",
-                                                                                                                    "message" => "File coud not be uploaded."
-                                                                                                                );
-                                                                                                            }
-                                                                                                        } else {
-                                                                                                            $response = array(
-                                                                                                                "status" => "alert-danger",
-                                                                                                                "message" => "Only .jpg, .jpeg and .png file formats allowed."
-                                                                                                            );
-                                                                                                        }
-
-
-                                                                                                        // Add into MySQL database
-                                                                                                        if (!empty($sqlVal)) {
-
-
-                                                                                                            array_push($uploaded_files, $sqlVal);
-                                                                                                        }
-                                                                                                    }
-                                                                                                    $data = array(
-                                                                                                        'asked_by' =>  $getuser[0]['username'],
-                                                                                                        'app_id' => $app_id,
-                                                                                                        'submissions' => $ask_for,
-                                                                                                        'files' => serialize($uploaded_files)
-                                                                                                    );
-                                                                                                    if ($portal->updateRequestedFile($conv_id, $data)) {
-                                                                                                        // echo "kaj hoise;";
-                                                                                                        debug($data);
-
-                                                                                                        echo '<script> window.location.replace("view-application.php?app-id=' . $app_id . '");  </script>';
-                                                                                                    }
-                                                                                                } else {
-                                                                                                    // Error
-                                                                                                    $response = array(
-                                                                                                        "status" => "alert-danger",
-                                                                                                        "message" => "Please select a file to upload."
-                                                                                                    );
-                                                                                                }
-                                                                                            }
-                                                                                            ?>
-
-                                                                                            <form action="" method="post" enctype="multipart/form-data">
-
-
-                                                                                                <div class="mb-3">
-                                                                                                    <label for="" class="form-label">Your Files </label>
-                                                                                                    <input type="file" class="form-control" name="fileUpload[]" id="file" multiple='multiple'>
-                                                                                                    <small>You can select Multiple Files</small>
-                                                                                                </div>
-                                                                                                <div class="mb-3">
-                                                                                                    <label for="" class="form-label">Message </label>
-                                                                                                    <textarea class="form-control " name="req_message"></textarea>
-                                                                                                </div>
-
-                                                                                                <input name="request_file_<?php echo  $conv['id'] ?>" id="" class="col-12 btn btn-primary waves-effect waves-light" type="submit" value="Submit Files">
-                                                                                            </form>
-
-
-
-                                                                                        </div>
-                                                                                        <!-- Submit Files ends  -->
-                                                                                    </div>
-                                                                                </div>
-                                                                            <?php
-                                                                            }
-                                                                            ?>
-
-
-
-
+                                                                                <?php
+                                                                                }
+                                                                                ?>
+                                                                            </div>
                                                                         </div>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </li>
-                                                    </ul>
+                                                        </div>
+                                                    <?php
 
+                                                    } else {
+                                                    ?>
+                                                        <!-- If No File Submitted then , Submit Files  -->
+                                                        <div class="conversation-list mb-4">
+                                                            <div class="shadow p-3  " style="background:rgba(162, 255, 177,0.1)">
+
+
+                                                                <div class="admin_message">
+                                                                    <span class="date p-2 me-2 px-3 rounded-pill " style="background:rgba(162, 255, 177,0.8)"> <i class="fas fa-clock"></i> <?php echo date_format($conv_date, "d F - g:ia") ?> </span>
+                                                                    <span class="date p-2 px-3 rounded-pill bg-warning" > <i class="fas fa-exclamation-triangle"></i> New Message! </span>
+                                                                    <div class="p-2"></div>
+                                                                    <div class="text-dark">
+                                                                        <p class="text-primary my-0"><strong>Message: </strong></p>
+                                                                        <?php echo $conv['ask_for'] ?>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="Submission_area">
+
+
+                                                                        <div class="submit_files">
+                                                                            <div class="my-2" id="que<?php echo $conv['id'] ?>">
+                                                                                <div class="card card-body">
+
+                                                                                    <?php
+                                                                                    if (isset($_POST['request_file_' . $conv['id']])) {
+                                                                                        $ask_for = $_REQUEST['req_message'];
+                                                                                        $conv_id = $conv['id'];
+                                                                                        $app_id = $singledata['id'];
+
+
+                                                                                        if (empty($ask_for)) {
+                                                                                            echo '<script> window.location.replace("view-application.php?error="error"&?app-id=' . $app_id . '");  </script>';
+                                                                                        }
+
+                                                                                        $uploaded_files = array();
+
+
+                                                                                        $uploadsDir = __DIR__ . "/_uploads/";
+                                                                                        // $allowedFileType = array('jpg', 'png', 'jpeg');
+
+                                                                                        // Velidate if files exist
+                                                                                        if (!empty(array_filter($_FILES['fileUpload']['name']))) {
+
+                                                                                            // Loop through file items
+                                                                                            foreach ($_FILES['fileUpload']['name'] as $id => $val) {
+                                                                                                // Get files upload path
+
+                                                                                                $getfileName        = $_FILES['fileUpload']['name'][$id];
+                                                                                                $fileName        = $portal->slugify($getfileName);
+                                                                                                $tempLocation    = $_FILES['fileUpload']['tmp_name'][$id];
+                                                                                                $targetFilePath  = $uploadsDir . $fileName;
+                                                                                                $fileType        = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
+                                                                                                $uploadDate      = date('Y-m-d-H-i-s');
+                                                                                                $uploadOk = 1;
+
+                                                                                                // if(in_array($fileType, $allowedFileType))
+                                                                                                if ($fileType !== 'php') {
+                                                                                                    if (move_uploaded_file($tempLocation, $targetFilePath)) {
+                                                                                                        $sqlVal = $fileName;
+                                                                                                    } else {
+                                                                                                        $response = array(
+                                                                                                            "status" => "alert-danger",
+                                                                                                            "message" => "File coud not be uploaded."
+                                                                                                        );
+                                                                                                    }
+                                                                                                } else {
+                                                                                                    $response = array(
+                                                                                                        "status" => "alert-danger",
+                                                                                                        "message" => "Only .jpg, .jpeg and .png file formats allowed."
+                                                                                                    );
+                                                                                                }
+
+
+                                                                                                // Add into MySQL database
+                                                                                                if (!empty($sqlVal)) {
+
+
+                                                                                                    array_push($uploaded_files, $sqlVal);
+                                                                                                }
+                                                                                            }
+                                                                                            $data = array(
+                                                                                                'asked_by' =>  $getuser[0]['username'],
+                                                                                                'app_id' => $app_id,
+                                                                                                'submissions' => $ask_for,
+                                                                                                'files' => serialize($uploaded_files)
+                                                                                            );
+                                                                                            if ($portal->updateRequestedFile($conv_id, $data)) {
+
+
+                                                                                                echo '<script> window.location.replace("view-application.php?app-id=' . $app_id . '");  </script>';
+                                                                                            } else {
+                                                                                                $response = array(
+                                                                                                    "status" => "alert-danger",
+                                                                                                    "message" => "Try Again"
+                                                                                                );
+                                                                                            }
+                                                                                        } else {
+                                                                                            // Error
+                                                                                            $response = array(
+                                                                                                "status" => "alert-danger",
+                                                                                                "message" => "Please select a file to upload."
+                                                                                            );
+                                                                                        }
+                                                                                    }
+                                                                                    ?>
+
+                                                                                    <form action="" method="post" enctype="multipart/form-data">
+
+
+                                                                                        <div class="mb-3">
+                                                                                            <label for="" class="form-label">Your Files </label>
+                                                                                            <input type="file" class="form-control" name="fileUpload[]" id="file" multiple='multiple'>
+                                                                                            <small>You can select Multiple Files</small>
+                                                                                        </div>
+                                                                                        <div class="mb-3">
+                                                                                            <label for="" class="form-label">Remarks </label>
+                                                                                            <textarea class="form-control " name="req_message" required></textarea>
+                                                                                            <?php if (isset($response)) {
+                                                                                            ?>
+                                                                                                <div class="p-2 my-2 <?php echo $response['status'] ?>"><?php echo $response['message']; ?></div>
+                                                                                            <?php
+                                                                                            } ?>
+
+                                                                                        </div>
+
+                                                                                        <input name="request_file_<?php echo  $conv['id'] ?>" id="" class="col-12 btn btn-primary waves-effect waves-light" type="submit" value="Submit Responses">
+                                                                                    </form>
+
+
+
+                                                                                </div>
+                                                                                <!-- Submit Files ends  -->
+                                                                            </div>
+                                                                        </div>
+
+
+
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <?php
+                                                    }
+
+                                                    ?>
 
                                                 <?php
                                                 }
@@ -380,6 +403,7 @@ if ($app_user !== $session_user) {
 
 
                                     </div>
+                                    <!-- \\\\\\\\\\\\\ PROCESSING STATE \\\\\\\\\\\\\\ -->
                                 <?php
 
 
@@ -411,12 +435,23 @@ if ($app_user !== $session_user) {
                                 <p><strong>Capital Uses: </strong> <?php echo $singledata['capital_uses'] ?> </p>
                                 <p><strong>Capital Need: </strong> <?php echo $singledata['capital_need'] ?> </p>
                                 <p><strong>Experiences: </strong> <?php echo $singledata['experience'] ?> </p>
-                                <div class="py-3"></div>
+
 
 
                                 <div class="application_letter">
+                                    <p> <strong>Addictional information:</strong></p>
                                     <?php echo $singledata['letter'] ?>
                                 </div>
+                                <div class="py-3"></div>
+                                <?php
+                                if (isset($singledata['attachment']) && strlen($singledata['attachment']) !== 0) {
+                                    echo "<p><strong>PELOC Document: </strong> <span class='text-white fs-6 badge bg-success'>Uploaded</span></p>";
+                                } else {
+                                    echo "<p><strong>PELOC Document: </strong> <span class='text-white fs-6 badge bg-danger'>Not Uploaded</span></p>";
+                                }
+
+                                ?>
+
 
                             </div>
                         </div>
@@ -437,9 +472,9 @@ if ($app_user !== $session_user) {
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <?php include '_upload_requiredfiles.php';?>
+                                                <?php include '_upload_requiredfiles.php'; ?>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>

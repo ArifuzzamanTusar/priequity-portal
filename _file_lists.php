@@ -1,7 +1,9 @@
 <?php 
 // Indexing 
 // $key = Array Key / document 
-// $files[0] = 
+// $files[0] = slug
+// $files[1] = Name
+// $files[2] = HelpText
 
 $required_files = array(
     'income_statement' => array("income_statement", "Income Statement", "Past five years or less starting with company establishment"),
@@ -15,7 +17,7 @@ $required_files = array(
     'business_bank_statements' => array("business_bank_statements", "Business Bank Statements", "Previous 5 Month’s Business Bank Statements for All Business Bank Accounts."),
     'post_closing' => array("post_closing", "Post-Closing", "Post-Closing Balance Assuming Term Sheet Terms/Rates."),
     'incorporation' => array("incorporation", "Articles of Incorporation", "Articles of Incorporation, Corporate Bylaws/Operating Agreement, & A Recent Certificate of Good Standing."),
-    'stock' => array("stock", "stock", "Capitalization Table of All Outstanding Stock Shares, Stock Warrants, & Stock Options."),
+    'stock' => array("stock", "Stock", "Capitalization Table of All Outstanding Stock Shares, Stock Warrants, & Stock Options."),
     'intellectual_property' => array("intellectual_property", "Intellectual Property", "All Registered Intellectual Property"),
 );
 ?>

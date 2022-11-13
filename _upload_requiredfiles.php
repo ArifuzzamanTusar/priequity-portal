@@ -72,7 +72,11 @@ include '_file_lists.php';
                 'document_name' => $document_name,
                 'attachment' => $attachment
             );
-            $portal->saveApplicationFiles($data);
+            if ($portal->saveApplicationFiles($data)) {
+                echo "<script> window.location.replace('')</script>";
+               
+            }
+            
         }
 
     ?>
