@@ -26,12 +26,22 @@ function debug($data){
     var_dump($data);
     echo "</pre>";
 }
+// mysqli_real_escape_string
+
+
+function request($request_name){
+    $portal = new DbClass();
+    $conn =  $portal->dbConnect;
+    return mysqli_real_escape_string($conn, $_REQUEST[$request_name]);
+}
+
+
 
 // ======= Mailing =======
 $admin_emails = array (
     'support@priequity.com',
-    'info@priequity.com',
-    'seymantha@priequity.com'
+    // 'info@priequity.com',
+    // 'seymantha@priequity.com'
 );
 
 
